@@ -17,7 +17,7 @@ public class PickUp : MonoBehaviour
     private GameObject[] elements;
     
 
-    
+
     void Start()
     {
         
@@ -26,6 +26,7 @@ public class PickUp : MonoBehaviour
         isHolding = false;
         elementIcon = null;
 
+        // Look for all active elements in the game and put in array
         elements = GameObject.FindGameObjectsWithTag("Element");
 
     }
@@ -33,8 +34,7 @@ public class PickUp : MonoBehaviour
     void Update()
     {
 
-    Debug.Log(inRange);
-    inRange = false;
+        inRange = false;
 
         //If someone presses the button, this parents the element to the selected empty.
         if (buttonDown)
@@ -48,6 +48,7 @@ public class PickUp : MonoBehaviour
             }
         } 
 
+            // Check if player is within range of one element
              foreach (GameObject obj in elements) {
                 float dist = Vector3.Distance(obj.transform.position, this.transform.position);
                 float minDist = 0.8f;
@@ -55,9 +56,8 @@ public class PickUp : MonoBehaviour
                 if (dist < minDist) {
                 inRange = true;
                 element = obj;
-                Debug.Log(element);
                 break;
-                } //else inRange = false;
+                }
              }
 
         if (Input.GetKeyDown (KeyCode.P)) {
@@ -67,29 +67,30 @@ public class PickUp : MonoBehaviour
     }
     
 
-
     public void PickUpObj()
     {
         if(inRange)
         {
-            //element = elements[0];
-            //If player already holds an item, delete if first
+            // If player already holds an item, delete if first
             if (elementIcon != null) Destroy(elementIcon);
+
+            // Instantiate a little element icon in Onye's bag
             elementIcon = Instantiate(element, new Vector3(grabPoint.transform.position.x + 5.0f, grabPoint.transform.position.y, 0), grabPoint.transform.rotation);
             Destroy(elementIcon.GetComponent<Rigidbody>());
+
             inRange = false;
             isHolding = true;   
         }
     }
 
-    public bool IsHoldingObject()
+    public bool PlayerIsInRange()
     {
-        return isHolding;
+        return inRange;
     }
 
-    public GameObject HeldObject()
+    public GameObject GetElementInRange()
     {
-        return elementIcon;
+        return element;
     }
 
 }
