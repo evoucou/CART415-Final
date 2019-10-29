@@ -50,6 +50,8 @@ public class IslandBehaviour : MonoBehaviour
             islandIsAtTop = false;
         }
 
+        if (!inRange) keyPressed = false;
+
         if (keyPressed && heldObj != null && inRange) {
             islandRise("Energy Island", "Air", "Fire", heldObj, objInRange); 
            islandRise("Energy Island", "Fire", "Air", heldObj, objInRange); 
