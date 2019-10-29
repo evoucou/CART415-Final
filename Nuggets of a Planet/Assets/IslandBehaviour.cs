@@ -12,6 +12,15 @@ public class IslandBehaviour : MonoBehaviour
     private GameObject objInRange;
     private GameObject island;
 
+    // private GameObject startIsland;
+    // private GameObject waterIsland;
+    // private GameObject fireIsland;
+    // private GameObject airIsland;
+    // private GameObject earthIsland;
+    // private GameObject energyIsland;
+    // private GameObject swampIsland;
+
+
     private bool inRange;
     private bool islandIsMoving;
     private bool islandIsAtTop;
@@ -34,7 +43,6 @@ public class IslandBehaviour : MonoBehaviour
         keyPressed = false;
         combinationExists = false;
 
-
     }
 
     void FixedUpdate()
@@ -52,8 +60,6 @@ public class IslandBehaviour : MonoBehaviour
             if(heldObj != null && inRange) checkIfCombinationExists(); else return;
         }
         if (Input.GetKeyUp(KeyCode.M)) combinationExists = false;
-
-       //if(keyPressed && inRange) checkIfCombinationExists(combinationExists, heldObj, objInRange);
 
         if (islandIsAtTop)
         {
@@ -101,27 +107,15 @@ public class IslandBehaviour : MonoBehaviour
                         dir = dir.normalized * speed * Time.deltaTime;
                         rb.MovePosition(island.transform.position + dir);
                         islandIsMoving = true;
+                        
                     } else {
                         islandIsAtTop = true;
+                        destroyWalls(islandName, island);
                     }
 
                 }
             }
     }
-
-    // public void checkIfCombinationExists(bool exists, GameObject isHeld, GameObject onGround) {
-        
-    //     string heldName = isHeld.transform.GetChild(0).gameObject.tag;
-    //     string groundName = onGround.transform.GetChild(0).gameObject.tag;
-        
-    //     if (heldName == "Earth") if (groundName == "Water") exists = true;
-    //     if (heldName == "Water") if (groundName == "Earth") exists = true;
-
-    //     if (heldName == "Air") if (groundName == "Fire") exists = true;
-    //     if (heldName == "Fire") if (groundName == "Air") exists = true;
-
-    //     Debug.Log("inside: " + exists);
-    // }
 
        // Check if the tried combination exists
        private void checkIfCombinationExists() {
@@ -136,5 +130,41 @@ public class IslandBehaviour : MonoBehaviour
         if (heldName == "Fire") if (groundName == "Air") combinationExists = true;
 
     }
+
+    // Destroy walls when new island appears
+    private void destroyWalls(string name, GameObject island) 
+    {
+
+        GameObject startIsland = GameObject.Find("Start");
+        GameObject waterIsland = GameObject.Find("Water Island");
+        GameObject fireIsland = GameObject.Find("Fire Island");
+        GameObject airIsland = GameObject.Find("Air Island");
+        GameObject earthIsland = GameObject.Find("Earth Island");
+        GameObject energyIsland = GameObject.Find("Energy Island");
+        GameObject swampIsland = GameObject.Find("Swamp Island");
+
+        // // Destroying walls where player can walk
+        // int walls = island.transform.childCount;
+        if (name == "Swamp Island") 
+        {
+            for (int i = 2; i < 5; ++i) Destroy(island.transform.GetChild(i).gameObject.GetComponent<BoxCollider>());
+            Destroy(earthIsland.transform.GetChild(5).gameObject.GetComponent<BoxCollider>());
+            Destroy(waterIsland.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
+            Destroy(startIsland.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
+
+        }
+        if (name == "Energy Island") 
+        {
+            Destroy(island.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
+            Destroy(island.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
+            Destroy(island.transform.GetChild(5).gameObject.GetComponent<BoxCollider>());
+
+            Destroy(fireIsland.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
+            Destroy(airIsland.transform.GetChild(2).gameObject.GetComponent<BoxCollider>());
+            Destroy(startIsland.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
+        }
+
+    }
+
 
 }
