@@ -31,7 +31,7 @@ public class PickUp : MonoBehaviour
 
     }
 
-    void Update()
+    void FixedUpdate()
     {
 
         inRange = false;
@@ -63,7 +63,7 @@ public class PickUp : MonoBehaviour
         if (Input.GetKeyDown (KeyCode.P)) {
             PickUpObj();
             buttonDown = true;
-        }      
+        }   
     }
     
 

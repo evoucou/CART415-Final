@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour
 
 	}
 
-	void Update () {
+	void FixedUpdate() {
 		// input
 		Vector2 input = new Vector2 (Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
 		Vector2 inputDir = input.normalized;

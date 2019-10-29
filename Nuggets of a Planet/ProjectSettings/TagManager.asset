@@ -6,6 +6,12 @@ TagManager:
   tags:
   - Island
   - Element
+  - Fire
+  - Earth
+  - Water
+  - Air
+  - Energy
+  - Swamp
   layers:
   - Default
   - TransparentFX
