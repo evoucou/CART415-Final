@@ -13,20 +13,20 @@ public class IslandBehaviour : MonoBehaviour
     private GameObject objInRange;
     private GameObject island;
 
-    // private GameObject startIsland;
-    // private GameObject waterIsland;
-    // private GameObject fireIsland;
-    // private GameObject airIsland;
-    // private GameObject earthIsland;
-    // private GameObject energyIsland;
-    // private GameObject swampIsland;
-
+    private bool energyUp = false;
+    private bool swampUp = false;
+    private bool lifeUp = false;
+    private bool lavaUp = false;
+    private bool stoneUp = false;
+    private bool sandUp = false;
+    private bool clayUp = false;
+    private bool golemUp = false;
+    private bool humanUp = false;
 
     private bool inRange;
     private bool islandIsMoving;
     private bool islandIsAtTop;
     private bool combinationExists;
-    private bool hasAnObj;
 
     public float speed;
     private Rigidbody rb;
@@ -53,7 +53,6 @@ public class IslandBehaviour : MonoBehaviour
         islandIsMoving = false;
         islandIsAtTop = false;
         combinationExists = false;
-        hasAnObj = false;
 
     }
 
@@ -68,28 +67,30 @@ public class IslandBehaviour : MonoBehaviour
 
         inRange = pickUpScript.PlayerIsInRange();
         
+        // Check if this is a valid combination if in range and player has obj
         if (Input.GetKeyDown(KeyCode.M)) {
             if(heldObj != null && inRange) checkIfCombinationExists(); else return;
         } 
 
+        // Text trigger (press 'm")
         if (inRange && heldObj != null && heldObj.gameObject.GetComponent<Renderer>().enabled == true) myText.SetActive(true); else myText.SetActive(false);
 
-        if (Input.GetKeyUp(KeyCode.M)) combinationExists = false;
+       // if (Input.GetKeyUp(KeyCode.M)) combinationExists = false;
 
         if (islandIsAtTop)
         {
-            islandIsMoving = false;
+            combinationExists = false;
             islandIsAtTop = false;
         }
 
-        if (combinationExists) 
-        {
-            islandIsMoving = true;
-            heldObj.gameObject.GetComponent<Renderer>().enabled = false;
-            
-        }
+        // if (combinationExists) 
+        // {
+        //     islandIsMoving = true;
+        //     heldObj.gameObject.GetComponent<Renderer>().enabled = false;
+          
+        // }
 
-        if (islandIsMoving) {        
+        if (combinationExists) {        
             islandRise("Energy Island", "Air", "Fire", heldObj, objInRange); 
            islandRise("Energy Island", "Fire", "Air", heldObj, objInRange); 
 
@@ -117,6 +118,9 @@ public class IslandBehaviour : MonoBehaviour
             islandRise("Human Island", "Golem", "Life", heldObj, objInRange); 
             islandRise("Human Island", "Life", "Golem", heldObj, objInRange);
 
+            // Obj in your bag disappears (reset)
+            heldObj.gameObject.GetComponent<Renderer>().enabled = false;
+
         }
 
         //  if (islandIsMoving) if (island.transform.position.y < 0) island.transform.Translate(Vector3.up * Time.deltaTime, Space.World); else islandIsAtTop = true;
@@ -124,7 +128,7 @@ public class IslandBehaviour : MonoBehaviour
 
     public void islandRise(string islandName, string desiredHeldElementName, string desiredFixedElementName, GameObject heldElement, GameObject fixedElement)
     {
-        
+
         GameObject island = GameObject.Find(islandName);
         rb = island.GetComponent<Rigidbody>();
 
@@ -165,44 +169,44 @@ public class IslandBehaviour : MonoBehaviour
         string groundName = objInRange.transform.GetChild(0).gameObject.tag;
         
         //SWAMP
-        if (heldName == "Earth") if (groundName == "Water") combinationExists = true;
-        if (heldName == "Water") if (groundName == "Earth") combinationExists = true;
+        if (heldName == "Earth") if (groundName == "Water") if (!swampUp) combinationExists = true;
+        if (heldName == "Water") if (groundName == "Earth") if (!swampUp) combinationExists = true;
 
         // ENERGY
-        if (heldName == "Air") if (groundName == "Fire") combinationExists = true;
-        if (heldName == "Fire") if (groundName == "Air") combinationExists = true;
+        if (heldName == "Air") if (groundName == "Fire") if (!energyUp) combinationExists = true;
+        if (heldName == "Fire") if (groundName == "Air") if (!energyUp) combinationExists = true;
 
         // LIFE
-        if (heldName == "Energy") if (groundName == "Swamp") combinationExists = true;
-        if (heldName == "Swamp") if (groundName == "Energy") combinationExists = true;
+        if (heldName == "Energy") if (groundName == "Swamp") if(!lifeUp) combinationExists = true;
+        if (heldName == "Swamp") if (groundName == "Energy") if(!lifeUp) combinationExists = true;
 
         // LAVA
-        if (heldName == "Fire") if (groundName == "Earth") combinationExists = true;
-        if (heldName == "Earth") if (groundName == "Fire") combinationExists = true;
+        if (heldName == "Fire") if (groundName == "Earth") if(!lavaUp) combinationExists = true;
+        if (heldName == "Earth") if (groundName == "Fire") if(!lavaUp) combinationExists = true;
 
         // STONE
-        if (heldName == "Air") if (groundName == "Lava") combinationExists = true;
-        if (heldName == "Lava") if (groundName == "Air") combinationExists = true;
+        if (heldName == "Air") if (groundName == "Lava") if(!stoneUp) combinationExists = true;
+        if (heldName == "Lava") if (groundName == "Air") if(!stoneUp) combinationExists = true;
 
         // SAND
-        if (heldName == "Stone") if (groundName == "Water") combinationExists = true;
-        if (heldName == "Water") if (groundName == "Stone") combinationExists = true;
+        if (heldName == "Stone") if (groundName == "Water") if(!sandUp) combinationExists = true;
+        if (heldName == "Water") if (groundName == "Stone") if(!sandUp) combinationExists = true;
 
         // CLAY
-        if (heldName == "Sand") if (groundName == "Swamp") combinationExists = true;
-        if (heldName == "Swamp") if (groundName == "Sand") combinationExists = true;
+        if (heldName == "Sand") if (groundName == "Swamp") if(!clayUp) combinationExists = true;
+        if (heldName == "Swamp") if (groundName == "Sand") if(!clayUp) combinationExists = true;
 
          // GOLEM
-        if (heldName == "Clay") if (groundName == "Life") combinationExists = true;
-        if (heldName == "Life") if (groundName == "Clay") combinationExists = true;
+        if (heldName == "Clay") if (groundName == "Life") if(!golemUp) combinationExists = true;
+        if (heldName == "Life") if (groundName == "Clay") if(!golemUp) combinationExists = true;
 
          // HUMAN
-        if (heldName == "Golem") if (groundName == "Life") combinationExists = true;
-        if (heldName == "Life") if (groundName == "Golem") combinationExists = true;
+        if (heldName == "Golem") if (groundName == "Life") if(!humanUp) combinationExists = true;
+        if (heldName == "Life") if (groundName == "Golem") if(!humanUp) combinationExists = true;
 
     }
 
-    // Destroy walls when new island appears
+    // Destroy walls when new island appears (also determines if island is up or not)
     private void destroyWalls(string name, GameObject island) 
     {
 
@@ -229,6 +233,8 @@ public class IslandBehaviour : MonoBehaviour
             Destroy(earthIsland.transform.GetChild(5).gameObject.GetComponent<BoxCollider>());
             Destroy(waterIsland.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
             Destroy(startIsland.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
+
+            swampUp = true;
         }
 
         if (name == "Energy Island") 
@@ -242,6 +248,7 @@ public class IslandBehaviour : MonoBehaviour
                 Destroy(island.transform.GetChild(2).gameObject.GetComponent<BoxCollider>());
                 Destroy(lavaIsland.transform.GetChild(5).gameObject.GetComponent<BoxCollider>());
             } 
+            energyUp = true;
         }
 
          if (name == "Life Island") 
@@ -254,6 +261,7 @@ public class IslandBehaviour : MonoBehaviour
                 Destroy(clayIsland.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
                 Destroy(island.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
             }
+            lifeUp = true;
         }
 
         if (name == "Lava Island") 
@@ -265,11 +273,13 @@ public class IslandBehaviour : MonoBehaviour
                 Destroy(lavaIsland.transform.GetChild(5).gameObject.GetComponent<BoxCollider>());
                 Destroy(island.transform.GetChild(5).gameObject.GetComponent<BoxCollider>());
             }
+            lavaUp = true;
         }
         
         if (name == "Stone Island") 
         {
             Destroy(airIsland.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
+            stoneUp = true;
         }
 
         if (name == "Sand Island") 
@@ -277,6 +287,7 @@ public class IslandBehaviour : MonoBehaviour
             Destroy(airIsland.transform.GetChild(5).gameObject.GetComponent<BoxCollider>());
             Destroy(stoneIsland.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
             Destroy(waterIsland.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
+            sandUp = true;
         }
 
         if (name == "Clay Island") 
@@ -289,18 +300,21 @@ public class IslandBehaviour : MonoBehaviour
                 Destroy(lifeIsland.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
                 Destroy(island.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
             }
+            clayUp = true;
         }
 
         if (name == "Golem Island") 
         {
             Destroy(lifeIsland.transform.GetChild(5).gameObject.GetComponent<BoxCollider>());
             Destroy(clayIsland.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
+            golemUp = true;
         }
 
         if (name == "Human Island") 
         {
             Destroy(lifeIsland.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
             Destroy(golemIsland.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
+            humanUp = true;
         }
 
     }

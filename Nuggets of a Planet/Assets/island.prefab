@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 8361760053844951375}
   - component: {fileID: 2825578978036759990}
   - component: {fileID: 5488553168180141997}
-  - component: {fileID: 3517903624602141031}
   - component: {fileID: 4881521668640827817}
+  - component: {fileID: 8542682051712048188}
   m_Layer: 0
   m_Name: island
   m_TagString: Island
@@ -101,19 +101,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 2534964839176971238, guid: 8bbace3bde7dc435fb216dc8aa781c48, type: 3}
---- !u!114 &3517903624602141031
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4542635659879450986}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ad99552fbb0741d2bfc1b1edc1f43f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
 --- !u!54 &4881521668640827817
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -130,6 +117,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8542682051712048188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4542635659879450986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ad99552fbb0741d2bfc1b1edc1f43f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
 --- !u!1001 &67760374003819200
 PrefabInstance:
   m_ObjectHideFlags: 0
