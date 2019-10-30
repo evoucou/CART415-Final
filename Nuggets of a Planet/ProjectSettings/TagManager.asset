@@ -12,6 +12,13 @@ TagManager:
   - Air
   - Energy
   - Swamp
+  - Life
+  - Lava
+  - Stone
+  - Sand
+  - Clay
+  - Golem
+  - Human
   layers:
   - Default
   - TransparentFX

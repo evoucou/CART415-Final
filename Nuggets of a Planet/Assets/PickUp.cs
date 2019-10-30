@@ -15,6 +15,8 @@ public class PickUp : MonoBehaviour
     private GameObject element;
     private GameObject elementIcon;
     private GameObject[] elements;
+
+    public GameObject myText;
     
 
 
@@ -25,6 +27,7 @@ public class PickUp : MonoBehaviour
         buttonDown = false;
         isHolding = false;
         elementIcon = null;
+        myText.SetActive(false);
 
         // Look for all active elements in the game and put in array
         elements = GameObject.FindGameObjectsWithTag("Element");
@@ -56,9 +59,11 @@ public class PickUp : MonoBehaviour
                 if (dist < minDist) {
                 inRange = true;
                 element = obj;
+                myText.SetActive(true);
                 break;
-                }
+                } else myText.SetActive(false);
              }
+
 
         if (Input.GetKeyDown (KeyCode.P)) {
             PickUpObj();
@@ -69,6 +74,7 @@ public class PickUp : MonoBehaviour
 
     public void PickUpObj()
     {
+
         if(inRange)
         {
             // If player already holds an item, delete if first
