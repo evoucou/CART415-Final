@@ -74,7 +74,6 @@ public class PickUp : MonoBehaviour
 
     public void PickUpObj()
     {
-
         if(inRange)
         {
             // If player already holds an item, delete if first

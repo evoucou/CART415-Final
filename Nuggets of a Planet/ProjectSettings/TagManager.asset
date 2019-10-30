@@ -19,6 +19,7 @@ TagManager:
   - Clay
   - Golem
   - Human
+  - MainCanvas
   layers:
   - Default
   - TransparentFX
