@@ -33,20 +33,25 @@ public class IslandBehaviour : MonoBehaviour
 
     private GameObject canvasObj;
     private GameObject myText;
-    //private Text myText;
+    private Text inRangeElement;
+
+    private ElementBehaviour elementScript;
  
     void Start()
     {
         
+        elementScript = GameObject.Find("Energy").GetComponent<ElementBehaviour>();
+
         // Find the grabPoint associated with player
         player = GameObject.FindWithTag("Player");
         grabPoint = player.transform.Find("Bag").gameObject;
  
         canvasObj = GameObject.FindGameObjectWithTag("MainCanvas");
         myText = canvasObj.transform.Find("Mix").gameObject;
-        //myText = textTr.GetComponent<Text>();
+        inRangeElement = GameObject.Find("ElementDisplay").GetComponent<Text>(); 
 
         myText.SetActive(false);
+        //inRangeElement.SetActive(false);
 
         pickUpScript = player.GetComponent<PickUp>();
         
@@ -74,6 +79,9 @@ public class IslandBehaviour : MonoBehaviour
 
         // Text trigger (press 'm")
         if (inRange && heldObj != null && heldObj.gameObject.GetComponent<Renderer>().enabled == true) myText.SetActive(true); else myText.SetActive(false);
+        
+        if (inRange) inRangeElement.text = objInRange.ToString();
+        else inRangeElement.text = " ";
 
        // if (Input.GetKeyUp(KeyCode.M)) combinationExists = false;
 
@@ -151,11 +159,14 @@ public class IslandBehaviour : MonoBehaviour
                         Vector3 dir = new Vector3(0, 1, 0);
                         dir = dir.normalized * speed * Time.deltaTime;
                         rb.MovePosition(island.transform.position + dir);
-                        //islandIsMoving = true;                
+                        islandIsMoving = true;                
                         
                     } else {
                         islandIsAtTop = true;
+                        elementScript.ElementReveal(islandName);
                         destroyWalls(islandName, island);
+                        islandIsMoving = false;
+                        // Reveal element on top
                     }
 
                 }
@@ -224,6 +235,7 @@ public class IslandBehaviour : MonoBehaviour
         GameObject clayIsland = GameObject.Find("Clay Island");
         GameObject golemIsland = GameObject.Find("Golem Island");
         GameObject humanIsland = GameObject.Find("Human Island");
+
 
         // // Destroying walls where player can walk
         // int walls = island.transform.childCount;
@@ -320,4 +332,12 @@ public class IslandBehaviour : MonoBehaviour
     }
 
 
+        public bool islandMoving() {
+            return islandIsMoving;
+        }
+
+        public bool islandAppeared() {
+            return islandIsAtTop;
+        }
+        
 }
