@@ -36,10 +36,11 @@ public class IslandBehaviour : MonoBehaviour
     private Text inRangeElement;
 
     private ElementBehaviour elementScript;
+    private string mostRecentIsland;
  
     void Start()
     {
-        
+        mostRecentIsland = null;
         elementScript = GameObject.Find("Energy").GetComponent<ElementBehaviour>();
 
         // Find the grabPoint associated with player
@@ -162,11 +163,11 @@ public class IslandBehaviour : MonoBehaviour
                         islandIsMoving = true;                
                         
                     } else {
-                        islandIsAtTop = true;
                         elementScript.ElementReveal(islandName);
                         destroyWalls(islandName, island);
+                        islandIsAtTop = true;
                         islandIsMoving = false;
-                        // Reveal element on top
+                        mostRecentIsland = islandName;
                     }
 
                 }
@@ -338,6 +339,10 @@ public class IslandBehaviour : MonoBehaviour
 
         public bool islandAppeared() {
             return islandIsAtTop;
+        }
+
+        public string recentIsland() {
+            return mostRecentIsland;
         }
         
 }
