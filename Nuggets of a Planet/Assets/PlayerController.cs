@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
 	}
 
 	void Move(Vector2 inputDir, bool running) {
+
 		if (inputDir != Vector2.zero) {
 			float targetRotation = Mathf.Atan2 (inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraT.eulerAngles.y;
 			transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, GetModifiedSmoothTime(turnSmoothTime));
