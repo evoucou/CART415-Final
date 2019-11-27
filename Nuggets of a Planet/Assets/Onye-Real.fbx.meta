@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fe8526d20e6c24564aa6545480fa5baf
+guid: 6f40ccd204b264f83877768bd6b62240
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable:
@@ -9,10 +9,17 @@ ModelImporter:
   - first:
       74: 2933577835342229695
     second: metarig|Walk
+  externalObjects:
   - first:
-      74: -2591626515993949171
-    second: metarig|Walk (1)
-  externalObjects: {}
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glass
+    second: {fileID: 2100000, guid: 3c4a41012c87b4103bb0c7f0cc635f00, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Suit
+    second: {fileID: 2100000, guid: 5d2d24140f8b34fd18331f483215cf34, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -45,7 +52,7 @@ ModelImporter:
       takeName: metarig|Idle
       internalID: 0
       firstFrame: 0
-      lastFrame: 379
+      lastFrame: 195
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
