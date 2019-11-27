@@ -196,18 +196,21 @@ public class IslandBehaviour : MonoBehaviour
             {
                 if(fixedElementName == desiredFixedElementName)
                 {
-                    if (_myMaterial.color.a < 1f)
-                    {
+                    // if (_myMaterial.color.a < 1f)
+                    // {
                 // Start a coroutine to fade the material to zero alpha over 3 seconds.
                 // Caching the reference to the coroutine lets us stop it mid-way if needed.
-                StartCoroutine(FadeIn(_myMaterial, 1f, 1.5f));               
+                //elementScript.ElementReveal(islandName);
+                destroyWalls(islandName, island);   
+                mostRecentIsland = islandName;  
+                StartCoroutine(FadeIn(_myMaterial, 1f, 1.5f));          
                         
-                    } else {
-                        destroyWalls(islandName, island);
-                        islandIsAtTop = true;
-                        islandIsMoving = false;
-                        mostRecentIsland = islandName;
-                    }
+                    // } else {
+                    //     destroyWalls(islandName, island);
+                    //     islandIsAtTop = true;
+                    //     islandIsMoving = false;
+                    //     mostRecentIsland = islandName;
+                    // }
 
                 }
             }
@@ -308,7 +311,7 @@ public class IslandBehaviour : MonoBehaviour
             Destroy(waterIsland.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
             Destroy(swampIsland.transform.GetChild(5).gameObject.GetComponent<BoxCollider>());
 
-            if(clayIsland.transform.position.y > -0.16) 
+            if(clayIsland.transform.position.y > -0.2) 
             {
                 Destroy(clayIsland.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
                 Destroy(island.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
@@ -404,6 +407,10 @@ public class IslandBehaviour : MonoBehaviour
 
             // Apply the resulting color to the material.
             material.color = color;
+
+                // islandIsAtTop = true;
+                // islandIsMoving = false;
+                // mostRecentIsland = islandName;
 
             // Wait one frame, and repeat.
             yield return null;

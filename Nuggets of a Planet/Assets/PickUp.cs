@@ -82,6 +82,7 @@ public class PickUp : MonoBehaviour
             // Instantiate a little element icon in Onye's bag
             elementIcon = Instantiate(element, new Vector3(grabPoint.transform.position.x + 5.0f, grabPoint.transform.position.y, 0), grabPoint.transform.rotation);
             Destroy(elementIcon.GetComponent<Float>());
+            elementIcon.transform.localScale += new Vector3(-0.05f, -0.05f, -0.05f);
 
             inRange = false;
             isHolding = true;   
