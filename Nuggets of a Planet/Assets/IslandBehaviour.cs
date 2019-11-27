@@ -124,8 +124,8 @@ public class IslandBehaviour : MonoBehaviour
             islandRise("Golem Island", "Clay", "Life", heldObj, objInRange); 
             islandRise("Golem Island", "Life", "Clay", heldObj, objInRange);
 
-            islandRise("Human Island", "Golem", "Life", heldObj, objInRange); 
-            islandRise("Human Island", "Life", "Golem", heldObj, objInRange);
+            specialIsland("Human Island", "Golem", "Life", heldObj, objInRange); 
+            specialIsland("Human Island", "Life", "Golem", heldObj, objInRange);
 
             // Obj in your bag disappears (reset)
             heldObj.gameObject.GetComponent<Renderer>().enabled = false;
@@ -164,6 +164,45 @@ public class IslandBehaviour : MonoBehaviour
                         
                     } else {
                         elementScript.ElementReveal(islandName);
+                        destroyWalls(islandName, island);
+                        islandIsAtTop = true;
+                        islandIsMoving = false;
+                        mostRecentIsland = islandName;
+                    }
+
+                }
+            }
+    }
+
+       public void specialIsland(string islandName, string desiredHeldElementName, string desiredFixedElementName, GameObject heldElement, GameObject fixedElement)
+    {
+
+        GameObject island = GameObject.Find(islandName);
+        //rb = island.GetComponent<Rigidbody>();
+        
+        Material _myMaterial = island.GetComponent<Renderer>().material;
+
+
+        string heldElementName = heldElement.transform.GetChild(0).gameObject.tag;
+        string fixedElementName = fixedElement.transform.GetChild(0).gameObject.tag;
+
+        // Debug.Log("Held Element Actual Name : " + heldElementName);
+        // Debug.Log("Held Element Desired Name : " + desiredHeldElementName);
+
+        // Debug.Log("Fixed Element Actual Name : " + fixedElementName);
+        // Debug.Log("Fixed Element Desired Name : " + desiredFixedElementName);
+
+            if (heldElementName == desiredHeldElementName)
+            {
+                if(fixedElementName == desiredFixedElementName)
+                {
+                    if (_myMaterial.color.a < 1f)
+                    {
+                // Start a coroutine to fade the material to zero alpha over 3 seconds.
+                // Caching the reference to the coroutine lets us stop it mid-way if needed.
+                StartCoroutine(FadeIn(_myMaterial, 1f, 1.5f));               
+                        
+                    } else {
                         destroyWalls(islandName, island);
                         islandIsAtTop = true;
                         islandIsMoving = false;
@@ -343,6 +382,32 @@ public class IslandBehaviour : MonoBehaviour
 
         public string recentIsland() {
             return mostRecentIsland;
+        }
+
+                IEnumerator FadeIn(Material material, float targetOpacity, float duration) {
+
+        // Cache the current color of the material, and its initiql opacity.
+        Color color = material.color;
+        float startOpacity = color.a;
+
+        // Track how many seconds we've been fading.
+        float t = 0;
+
+        while(t < duration) {
+            // Step the fade forward one frame.
+            t += Time.deltaTime;
+            // Turn the time into an interpolation factor between 0 and 1.
+            float blend = Mathf.Clamp01(t / duration);
+
+            // Blend to the corresponding opacity between start & target.
+            color.a = Mathf.Lerp(startOpacity, targetOpacity, blend);
+
+            // Apply the resulting color to the material.
+            material.color = color;
+
+            // Wait one frame, and repeat.
+            yield return null;
+            }
         }
         
 }

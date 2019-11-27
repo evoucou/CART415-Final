@@ -20,6 +20,7 @@ TagManager:
   - Golem
   - Human
   - MainCanvas
+  - SpecialIsland
   layers:
   - Default
   - TransparentFX

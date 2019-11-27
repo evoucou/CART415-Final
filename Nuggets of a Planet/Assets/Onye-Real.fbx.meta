@@ -13,7 +13,52 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: AntenneBase
+    second: {fileID: 2100000, guid: 8c07f77abe9984ac39a113c5c184a072, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AntenneEnd
+    second: {fileID: 2100000, guid: 5e92c0c48d06445ad919eb349a7bad8a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AntenneStick
+    second: {fileID: 2100000, guid: 297f60e817d294b96b846abb85a89769, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BagRing
+    second: {fileID: 2100000, guid: 1a4e6a4d2cc444c5bbc697842bc61c5d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body
+    second: {fileID: 2100000, guid: 5ab7380fcb6f34c4fb3fa74d7e2c89ca, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Boots
+    second: {fileID: 2100000, guid: df68b7b4f8f4044d9b3e124f296b75a8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DecoCasque
+    second: {fileID: 2100000, guid: d977f686503ac4023ac92b3ca8a42fb5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Glass
+    second: {fileID: 2100000, guid: 3c4a41012c87b4103bb0c7f0cc635f00, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Legs
+    second: {fileID: 2100000, guid: fd0cb91c8f4b1422fbd7c01d16d1c878, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SideDeco
     second: {fileID: 2100000, guid: 3c4a41012c87b4103bb0c7f0cc635f00, type: 2}
   - first:
       type: UnityEngine:Material
@@ -52,7 +97,7 @@ ModelImporter:
       takeName: metarig|Idle
       internalID: 0
       firstFrame: 0
-      lastFrame: 195
+      lastFrame: 192
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

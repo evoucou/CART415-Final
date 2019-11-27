@@ -102,6 +102,14 @@ public class ElementBehaviour : MonoBehaviour
             dustEm.enabled = false;
             streaksEm.enabled = false;
 
+
+            // elements = GameObject.FindGameObjectsWithTag("Element");
+
+            // foreach (GameObject el in elements) {
+
+            //     el.GetComponent<Material>().color = somevalue;
+            // }
+
         }
 
         void Update() {
@@ -118,14 +126,20 @@ public class ElementBehaviour : MonoBehaviour
             streaksEm.enabled = true;
             dustEm.enabled =  true;
 
+                        // .material getter clones the material, 
+            // so cache this copy in a member variable so we can dispose of it when we're done.
+            Material _myMaterial = element.GetComponent<Renderer>().material;
+
+            // Start a coroutine to fade the material to zero alpha over 3 seconds.
+            // Caching the reference to the coroutine lets us stop it mid-way if needed.
+            StartCoroutine(FadeTo(_myMaterial, 1f, 1.5f));
 
 
+            //SetMaterialOpaque();
 
-            SetMaterialOpaque();
+            //iTween.FadeTo(element, 0, 1);
 
-            iTween.FadeTo(element, 0, 1);
-    
-
+            
                 if(num < 120) {
                     num++;
                     streaksParticles.maxParticles = num/4;
@@ -147,6 +161,8 @@ public class ElementBehaviour : MonoBehaviour
 
                 checkIfVisitedNew();
             }
+
+            
         }
 
         //     private IEnumerator FadeIn(GameObject element) {
@@ -165,55 +181,84 @@ public class ElementBehaviour : MonoBehaviour
         //     StartCoroutine(FadeIn(element));
         // }
 
-        private void SetMaterialTransparent() {
-            //Material m = element.GetComponent<Renderer>().material;
-            elements = GameObject.FindGameObjectsWithTag("Element");
+                    // Define an enumerator to perform our fading.
+        // Pass it the material to fade, the opacity to fade to (0 = transparent, 1 = opaque),
+        // and the number of seconds to fade over.
+        IEnumerator FadeTo(Material material, float targetOpacity, float duration) {
 
-            foreach (GameObject el in elements)
-            {
-               
-                Material m = el.GetComponent<Renderer>().material;
+        // Cache the current color of the material, and its initiql opacity.
+        Color color = material.color;
+        float startOpacity = color.a;
 
-                m.SetFloat("_Mode", 2);
+        // Track how many seconds we've been fading.
+        float t = 0;
 
-                m.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        while(t < duration) {
+            // Step the fade forward one frame.
+            t += Time.deltaTime;
+            // Turn the time into an interpolation factor between 0 and 1.
+            float blend = Mathf.Clamp01(t / duration);
 
-                m.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+            // Blend to the corresponding opacity between start & target.
+            color.a = Mathf.Lerp(startOpacity, targetOpacity, blend);
 
-                m.SetInt("_ZWrite", 0);
+            // Apply the resulting color to the material.
+            material.color = color;
 
-                m.DisableKeyword("_ALPHATEST_ON");
-
-                m.EnableKeyword("_ALPHABLEND_ON");
-
-                m.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-
-                m.renderQueue = 3000;
+            // Wait one frame, and repeat.
+            yield return null;
             }
         }
 
-            private void SetMaterialOpaque()
+        // private void SetMaterialTransparent() {
+        //     //Material m = element.GetComponent<Renderer>().material;
+        //     elements = GameObject.FindGameObjectsWithTag("Element");
 
-    {
+        //     foreach (GameObject el in elements)
+        //     {
+               
+        //         Material m = el.GetComponent<Renderer>().material;
 
-        Material m = element.GetComponent<Renderer>().material;  
+        //         m.SetFloat("_Mode", 2);
 
-            m.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+        //         m.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
 
-            m.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+        //         m.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
 
-            m.SetInt("_ZWrite", 1);
+        //         m.SetInt("_ZWrite", 0);
 
-            m.DisableKeyword("_ALPHATEST_ON");
+        //         m.DisableKeyword("_ALPHATEST_ON");
 
-            m.DisableKeyword("_ALPHABLEND_ON");
+        //         m.EnableKeyword("_ALPHABLEND_ON");
 
-            m.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        //         m.DisableKeyword("_ALPHAPREMULTIPLY_ON");
 
-            m.renderQueue = -1;
+        //         m.renderQueue = 3000;
+        //     }
+        // }
+
+    //         private void SetMaterialOpaque()
+
+    // {
+
+    //     Material m = element.GetComponent<Renderer>().material;  
+
+    //         m.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+
+    //         m.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+
+    //         m.SetInt("_ZWrite", 1);
+
+    //         m.DisableKeyword("_ALPHATEST_ON");
+
+    //         m.DisableKeyword("_ALPHABLEND_ON");
+
+    //         m.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+
+    //         m.renderQueue = -1;
 
 
-    }
+    // }
 
         private void checkIfVisitedNew() {
 
