@@ -31,8 +31,11 @@ public class IslandBehaviour : MonoBehaviour
     public float speed;
     private Rigidbody rb;
 
-    private GameObject canvasObj;
-    private GameObject myText;
+    public Sprite activeM;
+    public Sprite inactiveM;
+    private Image stateM;
+
+    // private GameObject myText;
     private Text inRangeElement;
 
     private ElementBehaviour elementScript;
@@ -47,11 +50,12 @@ public class IslandBehaviour : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         grabPoint = player.transform.Find("Bag").gameObject;
  
-        canvasObj = GameObject.FindGameObjectWithTag("MainCanvas");
-        myText = canvasObj.transform.Find("Mix").gameObject;
+        GameObject canvas = GameObject.FindGameObjectWithTag("MainCanvas");
+        stateM = canvas.transform.Find("MKey").gameObject.GetComponent<Image>();
+        
         inRangeElement = GameObject.Find("ElementDisplay").GetComponent<Text>(); 
 
-        myText.SetActive(false);
+        // myText.SetActive(false);
         //inRangeElement.SetActive(false);
 
         pickUpScript = player.GetComponent<PickUp>();
@@ -79,7 +83,7 @@ public class IslandBehaviour : MonoBehaviour
         } 
 
         // Text trigger (press 'm")
-        if (inRange && heldObj != null && heldObj.gameObject.GetComponent<Renderer>().enabled == true) myText.SetActive(true); else myText.SetActive(false);
+        if (inRange && heldObj != null && heldObj.gameObject.GetComponent<Renderer>().enabled == true) stateM.sprite = activeM; else stateM.sprite = inactiveM;
         
         if (inRange) inRangeElement.text = objInRange.ToString();
         else inRangeElement.text = " ";

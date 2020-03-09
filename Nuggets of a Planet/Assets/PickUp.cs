@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class PickUp : MonoBehaviour
@@ -16,18 +17,24 @@ public class PickUp : MonoBehaviour
     private GameObject elementIcon;
     private GameObject[] elements;
 
-    public GameObject myText;
+    // public GameObject myText;
+
+    public Sprite activeP;
+    public Sprite inactiveP;
+    private Image stateP;
     
 
 
     void Start()
     {
+        GameObject canvas = GameObject.FindGameObjectWithTag("MainCanvas");
+        stateP = canvas.transform.Find("PKey").gameObject.GetComponent<Image>();
         
         inRange = false;
         buttonDown = false;
         isHolding = false;
         elementIcon = null;
-        myText.SetActive(false);
+        //myText.SetActive(false);
 
         // Look for all active elements in the game and put in array
         elements = GameObject.FindGameObjectsWithTag("Element");
@@ -59,9 +66,10 @@ public class PickUp : MonoBehaviour
                 if (dist < minDist) {
                 inRange = true;
                 element = obj;
-                myText.SetActive(true);
+                // myText.SetActive(true);
+                stateP.sprite = activeP;
                 break;
-                } else myText.SetActive(false);
+                } else stateP.sprite = inactiveP;
              }
 
 

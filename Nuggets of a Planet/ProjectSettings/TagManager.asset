@@ -21,6 +21,8 @@ TagManager:
   - Human
   - MainCanvas
   - SpecialIsland
+  - m-key
+  - p-key
   layers:
   - Default
   - TransparentFX

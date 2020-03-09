@@ -130,6 +130,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  activeM: {fileID: 21300000, guid: e90ef7713dc464021a314cf4f5539eb2, type: 3}
+  inactiveM: {fileID: 21300000, guid: c585c882bad28429bb49de1476a22958, type: 3}
 --- !u!1001 &773934065298493707
 PrefabInstance:
   m_ObjectHideFlags: 0
