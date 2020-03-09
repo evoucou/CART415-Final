@@ -165,6 +165,14 @@ public class IslandBehaviour : MonoBehaviour
                     } else {
                         elementScript.ElementReveal(islandName);
                         destroyWalls(islandName, island);
+                                                // .material getter clones the material, 
+            // // so cache this copy in a member variable so we can dispose of it when we're done.
+            // Material _myMaterial = island.GetComponent<Renderer>().material;
+
+            // // Start a coroutine to fade the material to zero alpha over 3 seconds.
+            // // Caching the reference to the coroutine lets us stop it mid-way if needed.
+            // StartCoroutine(FadeTo(_myMaterial, 1f, 1.5f));
+
                         islandIsAtTop = true;
                         islandIsMoving = false;
                         mostRecentIsland = islandName;
@@ -173,6 +181,33 @@ public class IslandBehaviour : MonoBehaviour
                 }
             }
     }
+
+
+           IEnumerator FadeTo(Material material, float targetOpacity, float duration) {
+
+        // Cache the current color of the material, and its initiql opacity.
+        Color color = material.color;
+        float startOpacity = color.a;
+
+        // Track how many seconds we've been fading.
+        float t = 0;
+
+        while(t < duration) {
+            // Step the fade forward one frame.
+            t += Time.deltaTime;
+            // Turn the time into an interpolation factor between 0 and 1.
+            float blend = Mathf.Clamp01(t / duration);
+
+            // Blend to the corresponding opacity between start & target.
+            color.a = Mathf.Lerp(startOpacity, targetOpacity, blend);
+
+            // Apply the resulting color to the material.
+            material.color = color;
+
+            // Wait one frame, and repeat.
+            yield return null;
+            }
+        }
 
        public void specialIsland(string islandName, string desiredHeldElementName, string desiredFixedElementName, GameObject heldElement, GameObject fixedElement)
     {
