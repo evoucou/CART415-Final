@@ -22,7 +22,6 @@ public class PickUp : MonoBehaviour
     public Sprite activeP;
     public Sprite inactiveP;
     private Image stateP;
-    
 
 
     void Start()
@@ -34,7 +33,6 @@ public class PickUp : MonoBehaviour
         buttonDown = false;
         isHolding = false;
         elementIcon = null;
-        //myText.SetActive(false);
 
         // Look for all active elements in the game and put in array
         elements = GameObject.FindGameObjectsWithTag("Element");
@@ -55,7 +53,7 @@ public class PickUp : MonoBehaviour
             {
                 elementIcon.transform.position = grabPoint.transform.position;
                 elementIcon.transform.parent = grabPoint.transform;
-            }
+            } 
         } 
 
             // Check if player is within range of one element

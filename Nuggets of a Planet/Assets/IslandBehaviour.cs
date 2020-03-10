@@ -54,6 +54,7 @@ public class IslandBehaviour : MonoBehaviour
         stateM = canvas.transform.Find("MKey").gameObject.GetComponent<Image>();
         
         inRangeElement = GameObject.Find("ElementDisplay").GetComponent<Text>(); 
+        
 
         // myText.SetActive(false);
         //inRangeElement.SetActive(false);
@@ -133,6 +134,7 @@ public class IslandBehaviour : MonoBehaviour
 
             // Obj in your bag disappears (reset)
             heldObj.gameObject.GetComponent<Renderer>().enabled = false;
+            heldObj = null;
 
         }
 
@@ -141,7 +143,7 @@ public class IslandBehaviour : MonoBehaviour
 
     public void islandRise(string islandName, string desiredHeldElementName, string desiredFixedElementName, GameObject heldElement, GameObject fixedElement)
     {
-
+     
         GameObject island = GameObject.Find(islandName);
         rb = island.GetComponent<Rigidbody>();
 
@@ -455,5 +457,10 @@ public class IslandBehaviour : MonoBehaviour
             yield return null;
             }
         }
+
+            public GameObject GetHeldObject()
+    {
+        return heldObj;
+    }
         
 }
