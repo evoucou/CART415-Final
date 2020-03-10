@@ -35,7 +35,6 @@ public class BagUI : MonoBehaviour
         if(heldObject != null) heldObjectTag = heldObject.transform.GetChild(0).gameObject.tag;
 
         getHeldObjName();
-        Debug.Log(heldObjectTag);
     }
 
     private void getHeldObjName()

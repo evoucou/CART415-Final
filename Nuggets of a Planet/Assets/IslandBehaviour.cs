@@ -22,6 +22,11 @@ public class IslandBehaviour : MonoBehaviour
     private bool clayUp = false;
     private bool golemUp = false;
     private bool humanUp = false;
+    private bool metalUp = false;
+    private bool toolsUp = false;
+    private bool bricksUp = false;
+    private bool cementUp = false;
+    private bool seedsUp = false;
 
     private bool inRange;
     private bool islandIsMoving;
@@ -129,12 +134,26 @@ public class IslandBehaviour : MonoBehaviour
             islandRise("Golem Island", "Clay", "Life", heldObj, objInRange); 
             islandRise("Golem Island", "Life", "Clay", heldObj, objInRange);
 
+            islandRise("Metal Island", "Stone", "Fire", heldObj, objInRange); 
+            islandRise("Metal Island", "Fire", "Stone", heldObj, objInRange);
+            
+            islandRise("Tools Island", "Metal", "Human", heldObj, objInRange); 
+            islandRise("Tools Island", "Human", "Metal", heldObj, objInRange);
+
+            islandRise("Bricks Island", "Clay", "Stone", heldObj, objInRange); 
+            islandRise("Bricks Island", "Stone", "Clay", heldObj, objInRange);
+
+            islandRise("Cement Island", "Clay", "Sand", heldObj, objInRange); 
+            islandRise("Cement Island", "Sand", "Clay", heldObj, objInRange);
+
+            islandRise("Seeds Island", "Sand", "Earth", heldObj, objInRange); 
+            islandRise("Seeds Island", "Earth", "Sand", heldObj, objInRange);
+
             specialIsland("Human Island", "Golem", "Life", heldObj, objInRange); 
             specialIsland("Human Island", "Life", "Golem", heldObj, objInRange);
 
             // Obj in your bag disappears (reset)
             heldObj.gameObject.GetComponent<Renderer>().enabled = false;
-            heldObj = null;
 
         }
 
@@ -244,14 +263,12 @@ public class IslandBehaviour : MonoBehaviour
                 //elementScript.ElementReveal(islandName);
                 destroyWalls(islandName, island);   
                 mostRecentIsland = islandName;  
-                StartCoroutine(FadeIn(_myMaterial, 1f, 1.5f));          
-                        
-                    // } else {
-                    //     destroyWalls(islandName, island);
-                    //     islandIsAtTop = true;
-                    //     islandIsMoving = false;
-                    //     mostRecentIsland = islandName;
-                    // }
+                StartCoroutine(FadeIn(_myMaterial, 1f, 1.5f)); 
+                elementScript.ElementReveal(islandName);      
+
+                islandIsAtTop = true;
+                islandIsMoving = false;
+                mostRecentIsland = islandName;
 
                 }
             }
@@ -299,6 +316,25 @@ public class IslandBehaviour : MonoBehaviour
         if (heldName == "Golem") if (groundName == "Life") if(!humanUp) combinationExists = true;
         if (heldName == "Life") if (groundName == "Golem") if(!humanUp) combinationExists = true;
 
+        // METAL
+        if (heldName == "Fire") if (groundName == "Stone") if(!metalUp) combinationExists = true;
+        if (heldName == "Stone") if (groundName == "Fire") if(!metalUp) combinationExists = true;
+
+        // TOOLS
+        if (heldName == "Human") if (groundName == "Metal") if(!toolsUp) combinationExists = true;
+        if (heldName == "Metal") if (groundName == "Human") if(!toolsUp) combinationExists = true;
+
+        // BRICKS
+        if (heldName == "Clay") if (groundName == "Stone") if(!bricksUp) combinationExists = true;
+        if (heldName == "Stone") if (groundName == "Clay") if(!bricksUp) combinationExists = true;
+        
+        // CEMENT
+        if (heldName == "Clay") if (groundName == "Sand") if(!cementUp) combinationExists = true;
+        if (heldName == "Sand") if (groundName == "Clay") if(!cementUp) combinationExists = true;
+
+        // SEEDS
+        if (heldName == "Sand") if (groundName == "Earth") if(!seedsUp) combinationExists = true;
+        if (heldName == "Earth") if (groundName == "Sand") if(!seedsUp) combinationExists = true;
     }
 
     // Destroy walls when new island appears (also determines if island is up or not)
@@ -319,6 +355,11 @@ public class IslandBehaviour : MonoBehaviour
         GameObject clayIsland = GameObject.Find("Clay Island");
         GameObject golemIsland = GameObject.Find("Golem Island");
         GameObject humanIsland = GameObject.Find("Human Island");
+        GameObject metalIsland = GameObject.Find("Metal Island");
+        GameObject toolsIsland = GameObject.Find("Tools Island");
+        GameObject bricksIsland = GameObject.Find("Bricks Island");
+        GameObject cementIsland = GameObject.Find("Cement Island");
+        GameObject seedsIsland = GameObject.Find("Seeds Island");
 
 
         // // Destroying walls where player can walk
@@ -343,6 +384,11 @@ public class IslandBehaviour : MonoBehaviour
             {
                 Destroy(island.transform.GetChild(2).gameObject.GetComponent<BoxCollider>());
                 Destroy(lavaIsland.transform.GetChild(5).gameObject.GetComponent<BoxCollider>());
+            } 
+            if (metalIsland.transform.position.y > -0.16) 
+            {
+                Destroy(island.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
+                Destroy(metalIsland.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
             } 
             energyUp = true;
         }
@@ -411,6 +457,67 @@ public class IslandBehaviour : MonoBehaviour
             Destroy(lifeIsland.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
             Destroy(golemIsland.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
             humanUp = true;
+        }
+
+        
+        if (name == "Metal Island") 
+        {
+            Destroy(stoneIsland.transform.GetChild(2).gameObject.GetComponent<BoxCollider>());
+            Destroy(airIsland.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
+
+            if(energyIsland.transform.position.y > -0.16) 
+            {
+            Destroy(island.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
+            Destroy(energyIsland.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
+            }
+            metalUp = true;
+        }
+
+               if (name == "Tools Island") 
+        {
+            Destroy(swampIsland.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
+            Destroy(lifeIsland.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
+            toolsUp = true;
+        }
+
+                if (name == "Bricks Island") 
+        {
+            Destroy(stoneIsland.transform.GetChild(5).gameObject.GetComponent<BoxCollider>());
+            Destroy(sandIsland.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
+                if(cementIsland.transform.position.y > -0.16) 
+            {
+            Destroy(cementIsland.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
+            Destroy(island.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
+            }
+            bricksUp = true;
+        }
+        
+                if (name == "Cement Island") 
+        {
+            Destroy(sandIsland.transform.GetChild(5).gameObject.GetComponent<BoxCollider>());
+            Destroy(clayIsland.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
+             if(bricksIsland.transform.position.y > -0.16) 
+            {
+            Destroy(island.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
+            Destroy(bricksIsland.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
+            }
+            cementUp = true;
+        }
+
+                if (name == "Seeds Island") 
+        {   
+            Destroy(earthIsland.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
+                 if(swampIsland.transform.position.y > -0.16) 
+            {
+            Destroy(swampIsland.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
+            Destroy(island.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
+            }
+                 if(toolsIsland.transform.position.y > -0.16) 
+            {
+            Destroy(toolsIsland.transform.GetChild(2).gameObject.GetComponent<BoxCollider>());
+            Destroy(island.transform.GetChild(5).gameObject.GetComponent<BoxCollider>());
+            }
+            seedsUp = true;
         }
 
     }
