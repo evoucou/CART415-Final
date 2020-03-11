@@ -23,6 +23,14 @@ TagManager:
   - SpecialIsland
   - m-key
   - p-key
+  - Tools
+  - Bricks
+  - Cement
+  - Turtle
+  - Egg
+  - Metal
+  - Seeds
+  - Lizard
   layers:
   - Default
   - TransparentFX

@@ -27,6 +27,9 @@ public class IslandBehaviour : MonoBehaviour
     private bool bricksUp = false;
     private bool cementUp = false;
     private bool seedsUp = false;
+    private bool eggUp = false;
+    private bool turtleUp = false;
+    private bool lizardUp = false;
 
     private bool inRange;
     private bool islandIsMoving;
@@ -127,6 +130,9 @@ public class IslandBehaviour : MonoBehaviour
 
             islandRise("Sand Island", "Stone", "Water", heldObj, objInRange); 
             islandRise("Sand Island", "Water", "Stone", heldObj, objInRange);
+    
+            islandRise("Egg Island", "Stone", "Sand", heldObj, objInRange); 
+            islandRise("Egg Island", "Sand", "Stone", heldObj, objInRange);
             
             islandRise("Clay Island", "Sand", "Swamp", heldObj, objInRange); 
             islandRise("Clay Island", "Swamp", "Sand", heldObj, objInRange);
@@ -148,6 +154,12 @@ public class IslandBehaviour : MonoBehaviour
 
             islandRise("Seeds Island", "Sand", "Earth", heldObj, objInRange); 
             islandRise("Seeds Island", "Earth", "Sand", heldObj, objInRange);
+            
+            islandRise("Turtle Island", "Sand", "Egg", heldObj, objInRange); 
+            islandRise("Turtle Island", "Egg", "Sand", heldObj, objInRange);
+
+            islandRise("Lizard Island", "Turtle", "Earth", heldObj, objInRange); 
+            islandRise("Lizard Island", "Earth", "Turtle", heldObj, objInRange);
 
             specialIsland("Human Island", "Golem", "Life", heldObj, objInRange); 
             specialIsland("Human Island", "Life", "Golem", heldObj, objInRange);
@@ -335,6 +347,18 @@ public class IslandBehaviour : MonoBehaviour
         // SEEDS
         if (heldName == "Sand") if (groundName == "Earth") if(!seedsUp) combinationExists = true;
         if (heldName == "Earth") if (groundName == "Sand") if(!seedsUp) combinationExists = true;
+
+        // EGG
+        if (heldName == "Stone") if (groundName == "Sand") if(!eggUp) combinationExists = true;
+        if (heldName == "Sand") if (groundName == "Stone") if(!eggUp) combinationExists = true;
+
+        // TURTLE
+        if (heldName == "Egg") if (groundName == "Sand") if(!turtleUp) combinationExists = true;
+        if (heldName == "Sand") if (groundName == "Egg") if(!turtleUp) combinationExists = true;
+
+        // LIZARD
+        if (heldName == "Earth") if (groundName == "Turtle") if(!lizardUp) combinationExists = true;
+        if (heldName == "Turtle") if (groundName == "Earth") if(!lizardUp) combinationExists = true;
     }
 
     // Destroy walls when new island appears (also determines if island is up or not)
@@ -360,6 +384,9 @@ public class IslandBehaviour : MonoBehaviour
         GameObject bricksIsland = GameObject.Find("Bricks Island");
         GameObject cementIsland = GameObject.Find("Cement Island");
         GameObject seedsIsland = GameObject.Find("Seeds Island");
+        GameObject eggIsland = GameObject.Find("Egg Island");
+        GameObject turtleIsland = GameObject.Find("Turtle Island");
+        GameObject lizardIsland = GameObject.Find("Lizard Island");
 
 
         // // Destroying walls where player can walk
@@ -432,6 +459,18 @@ public class IslandBehaviour : MonoBehaviour
             sandUp = true;
         }
 
+        
+        if (name == "Egg Island") 
+        {
+            Destroy(stoneIsland.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
+         if(bricksIsland.transform.position.y > -0.16) 
+            {
+            Destroy(bricksIsland.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
+            Destroy(island.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
+            } 
+            eggUp = true;
+        }
+
         if (name == "Clay Island") 
         {
             Destroy(sandIsland.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
@@ -470,6 +509,17 @@ public class IslandBehaviour : MonoBehaviour
             Destroy(island.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
             Destroy(energyIsland.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
             }
+            if(turtleIsland.transform.position.y > -0.16) 
+            {
+            Destroy(turtleIsland.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
+            Destroy(island.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
+            }
+
+             if(lizardIsland.transform.position.y > -0.16) 
+            {
+            Destroy(lizardIsland.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
+            Destroy(island.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
+            }
             metalUp = true;
         }
 
@@ -488,6 +538,11 @@ public class IslandBehaviour : MonoBehaviour
             {
             Destroy(cementIsland.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
             Destroy(island.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
+            }  
+            if(eggIsland.transform.position.y > -0.16) 
+            {
+            Destroy(eggIsland.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
+            Destroy(island.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
             }
             bricksUp = true;
         }
@@ -518,6 +573,29 @@ public class IslandBehaviour : MonoBehaviour
             Destroy(island.transform.GetChild(5).gameObject.GetComponent<BoxCollider>());
             }
             seedsUp = true;
+        }
+        
+           if (name == "Turtle Island") 
+        {
+            Destroy(stoneIsland.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
+            Destroy(eggIsland.transform.GetChild(2).gameObject.GetComponent<BoxCollider>());
+             if(metalIsland.transform.position.y > -0.16) 
+            {
+            Destroy(island.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
+            Destroy(metalIsland.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
+            }
+            turtleUp = true;
+        }
+        
+           if (name == "Lizard Island") 
+        {
+            Destroy(turtleIsland.transform.GetChild(2).gameObject.GetComponent<BoxCollider>());
+             if(metalIsland.transform.position.y > -0.16) 
+            {
+            Destroy(island.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
+            Destroy(metalIsland.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
+            }
+            turtleUp = true;
         }
 
     }
