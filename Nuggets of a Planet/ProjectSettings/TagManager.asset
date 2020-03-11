@@ -31,6 +31,10 @@ TagManager:
   - Metal
   - Seeds
   - Lizard
+  - Tree
+  - Forest
+  - Carbon
+  - Oil
   layers:
   - Default
   - TransparentFX

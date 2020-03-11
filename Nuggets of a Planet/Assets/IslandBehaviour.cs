@@ -30,6 +30,10 @@ public class IslandBehaviour : MonoBehaviour
     private bool eggUp = false;
     private bool turtleUp = false;
     private bool lizardUp = false;
+    private bool treeUp = false;
+    private bool forestUp = false;
+    private bool carbonUp = false;
+    private bool oilUp = false;
 
     private bool inRange;
     private bool islandIsMoving;
@@ -154,6 +158,17 @@ public class IslandBehaviour : MonoBehaviour
 
             islandRise("Seeds Island", "Sand", "Earth", heldObj, objInRange); 
             islandRise("Seeds Island", "Earth", "Sand", heldObj, objInRange);
+            
+            islandRise("Tree Island", "Seeds", "Earth", heldObj, objInRange); 
+            islandRise("Tree Island", "Earth", "Seeds", heldObj, objInRange);
+
+            islandRise("Forest Island", "Tree", "Tree", heldObj, objInRange); 
+    
+            islandRise("Carbon Island", "Forest", "Fire", heldObj, objInRange); 
+            islandRise("Carbon Island", "Fire", "Forest", heldObj, objInRange);
+        
+            islandRise("Oil Island", "Carbon", "Fire", heldObj, objInRange); 
+            islandRise("Oil Island", "Fire", "Carbon", heldObj, objInRange);
             
             islandRise("Turtle Island", "Sand", "Egg", heldObj, objInRange); 
             islandRise("Turtle Island", "Egg", "Sand", heldObj, objInRange);
@@ -348,6 +363,21 @@ public class IslandBehaviour : MonoBehaviour
         if (heldName == "Sand") if (groundName == "Earth") if(!seedsUp) combinationExists = true;
         if (heldName == "Earth") if (groundName == "Sand") if(!seedsUp) combinationExists = true;
 
+        // TREE
+        if (heldName == "Seeds") if (groundName == "Earth") if(!treeUp) combinationExists = true;
+        if (heldName == "Earth") if (groundName == "Seeds") if(!treeUp) combinationExists = true;
+
+        // FOREST
+        if (heldName == "Tree") if (groundName == "Tree") if(!forestUp) combinationExists = true;
+
+        // CARBON
+        if (heldName == "Forest") if (groundName == "Fire") if(!carbonUp) combinationExists = true;
+        if (heldName == "Fire") if (groundName == "Forest") if(!carbonUp) combinationExists = true;
+
+        // OIL
+        if (heldName == "Carbon") if (groundName == "Fire") if(!oilUp) combinationExists = true;
+        if (heldName == "Fire") if (groundName == "Carbon") if(!oilUp) combinationExists = true;
+
         // EGG
         if (heldName == "Stone") if (groundName == "Sand") if(!eggUp) combinationExists = true;
         if (heldName == "Sand") if (groundName == "Stone") if(!eggUp) combinationExists = true;
@@ -387,6 +417,10 @@ public class IslandBehaviour : MonoBehaviour
         GameObject eggIsland = GameObject.Find("Egg Island");
         GameObject turtleIsland = GameObject.Find("Turtle Island");
         GameObject lizardIsland = GameObject.Find("Lizard Island");
+        GameObject treeIsland = GameObject.Find("Tree Island");
+        GameObject forestIsland = GameObject.Find("Forest Island");
+        GameObject carbonIsland = GameObject.Find("Carbon Island");
+        GameObject oilIsland = GameObject.Find("Oil Island");
 
 
         // // Destroying walls where player can walk
@@ -573,6 +607,36 @@ public class IslandBehaviour : MonoBehaviour
             Destroy(island.transform.GetChild(5).gameObject.GetComponent<BoxCollider>());
             }
             seedsUp = true;
+        }
+
+            if (name == "Tree Island") 
+        {   
+            Destroy(earthIsland.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
+            Destroy(seedsIsland.transform.GetChild(2).gameObject.GetComponent<BoxCollider>());
+            treeUp = true;
+        }
+
+            if (name == "Forest Island") 
+        {   
+            Destroy(treeIsland.transform.GetChild(2).gameObject.GetComponent<BoxCollider>());
+            forestUp = true;
+        }
+
+            if (name == "Carbon Island") 
+        {   
+            Destroy(forestIsland.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
+            Destroy(treeIsland.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
+            Destroy(earthIsland.transform.GetChild(2).gameObject.GetComponent<BoxCollider>());
+            Destroy(fireIsland.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
+            carbonUp = true;
+        }
+
+
+            if (name == "Oil Island") 
+        {   
+            Destroy(forestIsland.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
+            Destroy(carbonIsland.transform.GetChild(2).gameObject.GetComponent<BoxCollider>());
+            oilUp = true;
         }
         
            if (name == "Turtle Island") 
