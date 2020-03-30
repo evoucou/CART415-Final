@@ -35,6 +35,12 @@ TagManager:
   - Forest
   - Carbon
   - Oil
+  - Fields
+  - Wood
+  - Wheel
+  - Cart
+  - Beast
+  - Horse
   layers:
   - Default
   - TransparentFX

@@ -34,6 +34,12 @@ public class IslandBehaviour : MonoBehaviour
     private bool forestUp = false;
     private bool carbonUp = false;
     private bool oilUp = false;
+    private bool fieldsUp = false;
+    private bool woodUp = false;
+    private bool wheelUp = false;
+    private bool cartUp = false;
+    private bool beastUp = false;
+    private bool horseUp = false;
 
     private bool inRange;
     private bool islandIsMoving;
@@ -175,6 +181,24 @@ public class IslandBehaviour : MonoBehaviour
 
             islandRise("Lizard Island", "Turtle", "Earth", heldObj, objInRange); 
             islandRise("Lizard Island", "Earth", "Turtle", heldObj, objInRange);
+
+            islandRise("Fields Island", "Tools", "Earth", heldObj, objInRange); 
+            islandRise("Fields Island", "Earth", "Tools", heldObj, objInRange);
+
+            islandRise("Wood Island", "Tools", "Tree", heldObj, objInRange); 
+            islandRise("Wood Island", "Tree", "Tools", heldObj, objInRange);
+
+            islandRise("Wheel Island", "Tools", "Wood", heldObj, objInRange); 
+            islandRise("Wheel Island", "Wood", "Tools", heldObj, objInRange);
+
+            islandRise("Cart Island", "Wheel", "Wood", heldObj, objInRange); 
+            islandRise("Cart Island", "Wood", "Wheel", heldObj, objInRange);
+
+            islandRise("Beast Island", "Lizard", "Forest", heldObj, objInRange); 
+            islandRise("Beast Island", "Forest", "Lizard", heldObj, objInRange);
+
+            islandRise("Horse Island", "Beast", "Cart", heldObj, objInRange); 
+            islandRise("Horse Island", "Cart", "Beast", heldObj, objInRange);
 
             specialIsland("Human Island", "Golem", "Life", heldObj, objInRange); 
             specialIsland("Human Island", "Life", "Golem", heldObj, objInRange);
@@ -389,6 +413,30 @@ public class IslandBehaviour : MonoBehaviour
         // LIZARD
         if (heldName == "Earth") if (groundName == "Turtle") if(!lizardUp) combinationExists = true;
         if (heldName == "Turtle") if (groundName == "Earth") if(!lizardUp) combinationExists = true;
+
+        // BEAST
+        if (heldName == "Forest") if (groundName == "Lizard") if(!beastUp) combinationExists = true;
+        if (heldName == "Lizard") if (groundName == "Forest") if(!beastUp) combinationExists = true;
+
+       // HORSE
+        if (heldName == "Beast") if (groundName == "Cart") if(!horseUp) combinationExists = true;
+        if (heldName == "Cart") if (groundName == "Beast") if(!horseUp) combinationExists = true;
+
+        // FIELDS
+        if (heldName == "Earth") if (groundName == "Tools") if(!fieldsUp) combinationExists = true;
+        if (heldName == "Tools") if (groundName == "Earth") if(!fieldsUp) combinationExists = true;
+
+        // WOOD
+        if (heldName == "Tree") if (groundName == "Tools") if(!woodUp) combinationExists = true;
+        if (heldName == "Tools") if (groundName == "Tree") if(!woodUp) combinationExists = true;
+
+        // WHEEL
+        if (heldName == "Wood") if (groundName == "Tools") if(!wheelUp) combinationExists = true;
+        if (heldName == "Tools") if (groundName == "Wood") if(!wheelUp) combinationExists = true;
+
+        // CART
+        if (heldName == "Wood") if (groundName == "Wheel") if(!cartUp) combinationExists = true;
+        if (heldName == "Wheel") if (groundName == "Wood") if(!cartUp) combinationExists = true;
     }
 
     // Destroy walls when new island appears (also determines if island is up or not)
@@ -417,10 +465,16 @@ public class IslandBehaviour : MonoBehaviour
         GameObject eggIsland = GameObject.Find("Egg Island");
         GameObject turtleIsland = GameObject.Find("Turtle Island");
         GameObject lizardIsland = GameObject.Find("Lizard Island");
+        GameObject beastIsland = GameObject.Find("Beast Island");
         GameObject treeIsland = GameObject.Find("Tree Island");
         GameObject forestIsland = GameObject.Find("Forest Island");
         GameObject carbonIsland = GameObject.Find("Carbon Island");
         GameObject oilIsland = GameObject.Find("Oil Island");
+        GameObject fieldsIsland = GameObject.Find("Fields Island");
+        GameObject woodIsland = GameObject.Find("Wood Island");
+        GameObject wheelIsland = GameObject.Find("Wheel Island");
+        GameObject cartIsland = GameObject.Find("Cart Island");
+        GameObject horseIsland = GameObject.Find("Horse Island");
 
 
         // // Destroying walls where player can walk
@@ -554,6 +608,12 @@ public class IslandBehaviour : MonoBehaviour
             Destroy(lizardIsland.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
             Destroy(island.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
             }
+
+            if(beastIsland.transform.position.y > -0.16) 
+            {
+            Destroy(beastIsland.transform.GetChild(5).gameObject.GetComponent<BoxCollider>());
+            Destroy(island.transform.GetChild(2).gameObject.GetComponent<BoxCollider>());
+            }
             metalUp = true;
         }
 
@@ -601,10 +661,16 @@ public class IslandBehaviour : MonoBehaviour
             Destroy(swampIsland.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
             Destroy(island.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
             }
-                 if(toolsIsland.transform.position.y > -0.16) 
+            if(toolsIsland.transform.position.y > -0.16) 
             {
             Destroy(toolsIsland.transform.GetChild(2).gameObject.GetComponent<BoxCollider>());
             Destroy(island.transform.GetChild(5).gameObject.GetComponent<BoxCollider>());
+            }
+
+             if(fieldsIsland.transform.position.y > -0.16) 
+            {
+            Destroy(fieldsIsland.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
+            Destroy(island.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
             }
             seedsUp = true;
         }
@@ -628,6 +694,12 @@ public class IslandBehaviour : MonoBehaviour
             Destroy(treeIsland.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
             Destroy(earthIsland.transform.GetChild(2).gameObject.GetComponent<BoxCollider>());
             Destroy(fireIsland.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
+
+             if(woodIsland.transform.position.y > -0.16) 
+            {
+            Destroy(woodIsland.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
+            Destroy(island.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
+            }
             carbonUp = true;
         }
 
@@ -636,6 +708,17 @@ public class IslandBehaviour : MonoBehaviour
         {   
             Destroy(forestIsland.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
             Destroy(carbonIsland.transform.GetChild(2).gameObject.GetComponent<BoxCollider>());
+
+           if(woodIsland.transform.position.y > -0.16) 
+            {
+            Destroy(woodIsland.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
+            Destroy(island.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
+            }
+            if(cartIsland.transform.position.y > -0.16) 
+            {
+            Destroy(cartIsland.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
+            Destroy(island.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
+            }
             oilUp = true;
         }
         
@@ -660,6 +743,74 @@ public class IslandBehaviour : MonoBehaviour
             Destroy(metalIsland.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
             }
             turtleUp = true;
+        }
+
+           if (name == "Beast Island") 
+        {
+            Destroy(lizardIsland.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
+            Destroy(energyIsland.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
+            Destroy(lavaIsland.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
+
+             if(metalIsland.transform.position.y > -0.16) 
+            {
+            Destroy(island.transform.GetChild(5).gameObject.GetComponent<BoxCollider>());
+            Destroy(metalIsland.transform.GetChild(2).gameObject.GetComponent<BoxCollider>());
+            }
+            beastUp = true;
+        }
+
+           if (name == "Fields Island") 
+        {
+            Destroy(toolsIsland.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
+
+             if(seedsIsland.transform.position.y > -0.16) 
+            {
+            Destroy(island.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
+            Destroy(seedsIsland.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
+            }
+            fieldsUp = true;
+        }
+
+          if (name == "Wood Island") 
+        {
+            Destroy(fireIsland.transform.GetChild(2).gameObject.GetComponent<BoxCollider>());
+            Destroy(lavaIsland.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
+
+             if(carbonIsland.transform.position.y > -0.16) 
+            {
+            Destroy(island.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
+            Destroy(carbonIsland.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
+            }
+             if(oilIsland.transform.position.y > -0.16) 
+            {
+            Destroy(island.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
+            Destroy(oilIsland.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
+            }
+            woodUp = true;
+        }
+           if (name == "Wheel Island") 
+        {
+            Destroy(lavaIsland.transform.GetChild(2).gameObject.GetComponent<BoxCollider>());
+            Destroy(woodIsland.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
+            wheelUp = true;
+        }
+           if (name == "Cart Island") 
+        {
+            Destroy(wheelIsland.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
+            Destroy(woodIsland.transform.GetChild(2).gameObject.GetComponent<BoxCollider>());
+            if(oilIsland.transform.position.y > -0.16) 
+            {
+            Destroy(island.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
+            Destroy(oilIsland.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
+            }
+            cartUp = true;
+        }
+           if (name == "Horse Island") 
+        {
+            Destroy(wheelIsland.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
+            Destroy(lavaIsland.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
+            Destroy(beastIsland.transform.GetChild(2).gameObject.GetComponent<BoxCollider>());
+            horseUp = true;
         }
 
     }
