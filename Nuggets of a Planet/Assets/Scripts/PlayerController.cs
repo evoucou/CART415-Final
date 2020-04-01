@@ -25,20 +25,33 @@ public class PlayerController : MonoBehaviour
 	Transform cameraT;
 	CharacterController controller;
 
+	public GameObject DialogueManager;
+	private DialogueManager DialogueScript;
+	private int sentence;
+
 	void Start () {
 		animator = GetComponent<Animator> ();
 		cameraT = Camera.main.transform;
 		controller = GetComponent<CharacterController>();
 
+		DialogueScript = DialogueManager.GetComponent<DialogueManager>();
 	}
 
 	void FixedUpdate() {
+
+		// Know which sentence is displayed
+		sentence = DialogueScript.dialogueIndex();
+
 		// input
 		Vector2 input = new Vector2 (Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
 		Vector2 inputDir = input.normalized;
 		bool running = Input.GetKey (KeyCode.LeftShift);
 
+		// if tutorial is open, can't move, unless it's the 'use arrows to move' dialogue
 		if (!dialogueState.GetBool("isOpen")) Move (inputDir, running);
+		else {
+			if(sentence == 6 || sentence <= 4) Move (inputDir, running);
+		}
 
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			//Jump ();

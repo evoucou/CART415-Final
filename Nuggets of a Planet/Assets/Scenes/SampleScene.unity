@@ -2101,7 +2101,8 @@ MonoBehaviour:
   dialogue:
     sentences:
     - Hello there! It seems like you are new here. Let me walk you through it.
-    - Why don't you try walking over that element, and try picking it up?
+    - Try moving with the keyboard arrows.
+    - Great! You can unlock camera rotation with C on your keyboard to look around.
 --- !u!114 &315470021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12578,7 +12579,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1398929208
 Transform:
   m_ObjectHideFlags: 0

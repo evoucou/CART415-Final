@@ -36,6 +36,11 @@ public class ThirdPersonCamera : MonoBehaviour
     public Sprite unlockedCam;
     private Image camIcon;
 
+	public GameObject DialogueManager;
+	private DialogueManager DialogueScript;
+	private int sentence;
+	public Animator dialogueState;
+
 	// 	// Transform of the camera to shake. Grabs the gameObject's transform
 	// // if null.
 	// public Transform camTransform;
@@ -60,6 +65,8 @@ public class ThirdPersonCamera : MonoBehaviour
 		camIcon.sprite = lockedCam;
 		lookAroundActivated = false;
 
+		DialogueScript = DialogueManager.GetComponent<DialogueManager>();
+
 		// 		if (camTransform == null)
 		// {
 		// 	camTransform = GetComponent(typeof(Transform)) as Transform;
@@ -69,12 +76,26 @@ public class ThirdPersonCamera : MonoBehaviour
 	}
 
 	void FixedUpdate () {
+
+		sentence = DialogueScript.dialogueIndex();
 		islandIsMoving = IslandScript.islandMoving();
+					//Debug.Log(lookAroundActivated);
 
         if (Input.GetKeyDown (KeyCode.C)) {
+			if (!dialogueState.GetBool("isOpen")) {
 			if(!lookAroundActivated) lookAroundActivated = true;
 			else lookAroundActivated = false;
-        }
+			} // if dialogue not open
+			else {
+				if(sentence == 5) {
+			if(!lookAroundActivated) lookAroundActivated = true;
+			else lookAroundActivated = false;
+				}
+			} // if dialogue open but 3rd dialogue
+        }	// C key
+
+		if(sentence != 5) lookAroundActivated = false;
+
 
 		Vector3 desiredPosition = target.position + offset;
 		Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
