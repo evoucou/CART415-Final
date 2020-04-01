@@ -20,7 +20,7 @@ public class DialogueManager : MonoBehaviour
 
         animator.SetBool("isOpen", true);
 
-        Debug.Log("Starting Conversation");
+        //Debug.Log("Starting Conversation");
 
         sentences.Clear();
 
@@ -49,7 +49,7 @@ public class DialogueManager : MonoBehaviour
     }
     
     void EndDialogue() {
-        Debug.Log("End of conversation");
+        //Debug.Log("End of conversation");
          animator.SetBool("isOpen", false);
     }
 

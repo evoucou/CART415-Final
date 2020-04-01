@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 	public float jumpHeight = 1;
 	[Range(0,1)]
 	public float airControlPercent;
+	public Animator dialogueState;
 
 	public float turnSmoothTime = 0.2f;
 	float turnSmoothVelocity;
@@ -37,7 +38,7 @@ public class PlayerController : MonoBehaviour
 		Vector2 inputDir = input.normalized;
 		bool running = Input.GetKey (KeyCode.LeftShift);
 
-		Move (inputDir, running);
+		if (!dialogueState.GetBool("isOpen")) Move (inputDir, running);
 
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			//Jump ();

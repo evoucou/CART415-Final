@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class ThirdPersonCamera : MonoBehaviour
 {
-	public bool lockCursor;
+	//public bool lockCursor;
 	public float mouseSensitivity = 10;
 	public Transform target;
-	public float dstFromTarget = 2;
+	public float dstFromTarget = 4;
+
+	public float smoothSpeed = 0.125f;
+	public Vector3 offset;
 	public Vector2 pitchMinMax = new Vector2 (-40, 85);
+
+	private bool lookAroundActivated;
 
 	public float rotationSmoothTime = .12f;
 	Vector3 rotationSmoothVelocity;
@@ -39,10 +44,12 @@ public class ThirdPersonCamera : MonoBehaviour
 	Vector3 originalPos;
 
 	void Start() {
-		if (lockCursor) {
-			Cursor.lockState = CursorLockMode.Locked;
-			Cursor.visible = false;
-		}
+		// if (lockCursor) {
+		// 	Cursor.lockState = CursorLockMode.Locked;
+		// 	Cursor.visible = false;
+		// }
+
+		lookAroundActivated = false;
 
 		// 		if (camTransform == null)
 		// {
@@ -52,9 +59,15 @@ public class ThirdPersonCamera : MonoBehaviour
 		IslandScript = island.GetComponent<IslandBehaviour>();
 	}
 
-	void LateUpdate () {
+	void FixedUpdate () {
 		islandIsMoving = IslandScript.islandMoving();
 
+        if (Input.GetKeyDown (KeyCode.C)) {
+			if(!lookAroundActivated) lookAroundActivated = true;
+			else lookAroundActivated = false;
+        }
+
+		if(lookAroundActivated) {
 		yaw += Input.GetAxis ("Mouse X") * mouseSensitivity;
 		pitch -= Input.GetAxis ("Mouse Y") * mouseSensitivity;
 		pitch = Mathf.Clamp (pitch, pitchMinMax.x, pitchMinMax.y);
@@ -64,8 +77,38 @@ public class ThirdPersonCamera : MonoBehaviour
 
 		transform.position = target.position - transform.forward * dstFromTarget;
 
+		handleZoom();
+
+		} else {
+		Vector3 desiredPosition = target.position + offset;
+		Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+		transform.position = smoothedPosition;
+
+		transform.LookAt(target);
+		}
+
 
 		if (islandIsMoving) StartCoroutine("Shake");
+	}
+
+	private void handleZoom() {
+
+				//control dist from target with scroll
+		float zoomChangeAmount = 80f;
+		 if (Input.GetAxis("Mouse ScrollWheel") < 0) // back zoom out
+        {
+			//Camera.main.orthographicSize = Mathf.Max(Camera.main.orthographicSize-1, 1);
+			//dstFromTarget -= Mathf.Max(Camera.main.orthographicSize-1, 1);
+			dstFromTarget -= zoomChangeAmount * Time.deltaTime;
+     	}
+     if (Input.GetAxis("Mouse ScrollWheel") > 0) // forward zoom in
+     {
+        	//Camera.main.orthographicSize = Mathf.Min(Camera.main.orthographicSize-1, 6);
+			dstFromTarget += zoomChangeAmount * Time.deltaTime;
+     }
+
+	 dstFromTarget = Mathf.Clamp(dstFromTarget, 4f, 8f);
+
 	}
 
     public IEnumerator Shake()

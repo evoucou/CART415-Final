@@ -7961,6 +7961,7 @@ MonoBehaviour:
   gravity: -12
   jumpHeight: 1
   airControlPercent: 0
+  dialogueState: {fileID: 0}
   turnSmoothTime: 0.2
   speedSmoothTime: 0.1
 --- !u!65 &467774144
@@ -8496,10 +8497,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 107610ce1764d48c8b325658c7a99b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lockCursor: 0
-  mouseSensitivity: 10
+  mouseSensitivity: 8
   target: {fileID: 1125250305}
-  dstFromTarget: 5
+  dstFromTarget: 4
+  smoothSpeed: 0.125
+  offset: {x: 3, y: 3, z: 1}
+  lookAroundActivated: 0
   pitchMinMax: {x: -40, y: 85}
   rotationSmoothTime: 0.12
   island: {fileID: 631129379}
@@ -11414,6 +11417,7 @@ MonoBehaviour:
   gravity: -12
   jumpHeight: 1
   airControlPercent: 0
+  dialogueState: {fileID: 1995138010}
   turnSmoothTime: 0.2
   speedSmoothTime: 0.1
 --- !u!64 &1125250302
@@ -12320,6 +12324,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1380793474}
+  - component: {fileID: 1380793476}
+  - component: {fileID: 1380793475}
   m_Layer: 5
   m_Name: Minimap
   m_TagString: Untagged
@@ -12350,6 +12356,39 @@ RectTransform:
   m_AnchoredPosition: {x: 251, y: 67}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &1380793475
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380793473}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f7c0d8ab85e524cf8a0e51980ad636c7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1380793476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380793473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de38ccf055e7a4a15921bfbac62c9a28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minimapAnimator: {fileID: 1380793475}
+  dialogueAnimator: {fileID: 1995138010}
 --- !u!1001 &1381018300
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19083,7 +19122,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4
+  orthographic size: 3
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
