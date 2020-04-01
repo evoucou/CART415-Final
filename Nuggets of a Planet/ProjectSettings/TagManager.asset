@@ -41,6 +41,7 @@ TagManager:
   - Cart
   - Beast
   - Horse
+  - camIcon
   layers:
   - Default
   - TransparentFX

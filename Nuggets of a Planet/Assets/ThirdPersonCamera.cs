@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ThirdPersonCamera : MonoBehaviour
 {
@@ -30,6 +31,11 @@ public class ThirdPersonCamera : MonoBehaviour
 	public float duration = 0.5f;
 	public float magnitude = 0.03f;
 
+	// Icon
+	public Sprite lockedCam;
+    public Sprite unlockedCam;
+    private Image camIcon;
+
 	// 	// Transform of the camera to shake. Grabs the gameObject's transform
 	// // if null.
 	// public Transform camTransform;
@@ -49,6 +55,9 @@ public class ThirdPersonCamera : MonoBehaviour
 		// 	Cursor.visible = false;
 		// }
 
+		GameObject canvas = GameObject.FindGameObjectWithTag("MainCanvas");
+        camIcon = canvas.transform.Find("CameraIcon").gameObject.GetComponent<Image>();
+		camIcon.sprite = lockedCam;
 		lookAroundActivated = false;
 
 		// 		if (camTransform == null)
@@ -68,6 +77,8 @@ public class ThirdPersonCamera : MonoBehaviour
         }
 
 		if(lookAroundActivated) {
+		camIcon.sprite = unlockedCam;
+
 		yaw += Input.GetAxis ("Mouse X") * mouseSensitivity;
 		pitch -= Input.GetAxis ("Mouse Y") * mouseSensitivity;
 		pitch = Mathf.Clamp (pitch, pitchMinMax.x, pitchMinMax.y);
@@ -80,6 +91,8 @@ public class ThirdPersonCamera : MonoBehaviour
 		handleZoom();
 
 		} else {
+		camIcon.sprite = lockedCam;
+
 		Vector3 desiredPosition = target.position + offset;
 		Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
 		transform.position = smoothedPosition;
