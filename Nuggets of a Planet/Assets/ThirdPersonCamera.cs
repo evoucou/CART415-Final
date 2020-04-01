@@ -76,6 +76,10 @@ public class ThirdPersonCamera : MonoBehaviour
 			else lookAroundActivated = false;
         }
 
+		Vector3 desiredPosition = target.position + offset;
+		Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+		transform.position = smoothedPosition;
+
 		if(lookAroundActivated) {
 		camIcon.sprite = unlockedCam;
 
@@ -91,15 +95,10 @@ public class ThirdPersonCamera : MonoBehaviour
 		handleZoom();
 
 		} else {
-		camIcon.sprite = lockedCam;
-
-		Vector3 desiredPosition = target.position + offset;
-		Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-		transform.position = smoothedPosition;
-
 		transform.LookAt(target);
+		camIcon.sprite = lockedCam;
+		dstFromTarget = 4;
 		}
-
 
 		if (islandIsMoving) StartCoroutine("Shake");
 	}
