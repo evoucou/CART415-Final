@@ -53,6 +53,12 @@ public class IslandBehaviour : MonoBehaviour
     public Sprite inactiveM;
     private Image stateM;
 
+    private GameObject DialogueManager;
+	private DialogueManager DialogueScript;
+	private int sentence;
+	private Animator dialogueState;
+    private Button button;
+
     // private GameObject myText;
     private Text inRangeElement;
 
@@ -72,7 +78,15 @@ public class IslandBehaviour : MonoBehaviour
         stateM = canvas.transform.Find("MKey").gameObject.GetComponent<Image>();
         
         inRangeElement = GameObject.Find("ElementDisplay").GetComponent<Text>(); 
-        
+
+        GameObject dialogueBox = canvas.transform.Find("DialogueBox").gameObject;
+
+        dialogueState = dialogueBox.GetComponent<Animator>();
+        button = dialogueBox.transform.GetChild(5).gameObject.GetComponent<Button>();
+
+
+        DialogueManager = GameObject.Find("DialogueManager");
+        DialogueScript = DialogueManager.GetComponent<DialogueManager>();
 
         // myText.SetActive(false);
         //inRangeElement.SetActive(false);
@@ -88,6 +102,8 @@ public class IslandBehaviour : MonoBehaviour
     void FixedUpdate()
     {
 
+        sentence = DialogueScript.dialogueIndex();
+
         // Find the element that is currently held
         if (grabPoint.transform.childCount > 0) heldObj = grabPoint.transform.GetChild(0).gameObject;
         
@@ -97,9 +113,40 @@ public class IslandBehaviour : MonoBehaviour
         inRange = pickUpScript.PlayerIsInRange();
         
         // Check if this is a valid combination if in range and player has obj
+        
+
+        if (dialogueState.GetBool("isOpen")) {
+            //Debug.Log("Dialogue is open");
+            if(sentence == 4) { 
+                button.interactable = false;
+            
         if (Input.GetKeyDown(KeyCode.M)) {
-            if(heldObj != null && inRange) checkIfCombinationExists(); else return;
-        } 
+            string name;
+            if(heldObj != null && inRange) { 
+            name = objInRange.transform.GetChild(0).gameObject.tag;
+            if (name == "Earth") {
+                button.interactable = true;
+                checkIfCombinationExists();
+                        }
+                    }
+                }
+            }
+        } else {
+            if (Input.GetKeyDown(KeyCode.M)) {
+            if(heldObj != null && inRange) checkIfCombinationExists(); else return;     
+            }
+        }
+
+        //          if (dialogueState.GetBool("isOpen")) {
+        //     string name;
+        //      if(sentence == 6) {
+        //     button.interactable = false;
+        //     if(buttonDown && inRange) {
+        //     name = element.transform.GetChild(0).gameObject.tag;
+        //      if (name == "Fire") button.interactable = true;
+        //         }
+        //     }  
+        // } 
 
         // Text trigger (press 'm")
         if (inRange && heldObj != null && heldObj.gameObject.GetComponent<Renderer>().enabled == true) stateM.sprite = activeM; else stateM.sprite = inactiveM;

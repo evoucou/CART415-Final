@@ -8,6 +8,11 @@ public class ThirdPersonCamera : MonoBehaviour
 	//public bool lockCursor;
 	public float mouseSensitivity = 10;
 	public Transform target;
+	public Transform targetFire;
+	public Transform targetEarth;
+	public Transform targetLava;
+	public Transform targetHuman;
+	//private Transform currTarget;
 	public float dstFromTarget = 4;
 
 	public float smoothSpeed = 0.125f;
@@ -40,6 +45,9 @@ public class ThirdPersonCamera : MonoBehaviour
 	private DialogueManager DialogueScript;
 	private int sentence;
 	public Animator dialogueState;
+
+	public Button button;
+	private bool cPressed = false;
 
 	// 	// Transform of the camera to shake. Grabs the gameObject's transform
 	// // if null.
@@ -81,20 +89,52 @@ public class ThirdPersonCamera : MonoBehaviour
 		islandIsMoving = IslandScript.islandMoving();
 					//Debug.Log(lookAroundActivated);
 
-        if (Input.GetKeyDown (KeyCode.C)) {
-			if (!dialogueState.GetBool("isOpen")) {
-			if(!lookAroundActivated) lookAroundActivated = true;
-			else lookAroundActivated = false;
-			} // if dialogue not open
-			else {
-				if(sentence == 5) {
-			if(!lookAroundActivated) lookAroundActivated = true;
-			else lookAroundActivated = false;
-				}
-			} // if dialogue open but 3rd dialogue
-        }	// C key
+    //     if (Input.GetKeyDown (KeyCode.C)) {
+	// 		if (!dialogueState.GetBool("isOpen")) {
+	// 		if(!lookAroundActivated) lookAroundActivated = true;
+	// 		else lookAroundActivated = false;
+	// 		} // if dialogue not open
+	// 		else {
+	// 			if(sentence == 7) {
+	// 		if(!lookAroundActivated) lookAroundActivated = true;
+	// 		else lookAroundActivated = false;
+	// 			}
+	// 		} // if dialogue open but 3rd dialogue
+    //     }	// C key
 
-		if(sentence != 5) lookAroundActivated = false;
+	// 	if (dialogueState.GetBool("isOpen"))
+	// {
+	// 	if(sentence != 7) lookAroundActivated = false;
+	// 	else {
+	// 		button.interactable = false;
+	// 	}
+	// }
+
+	if (dialogueState.GetBool("isOpen")) {
+		if(sentence == 7) {
+		button.interactable = false;
+		if (Input.GetKeyDown (KeyCode.C)) 
+			{
+			cPressed = true;
+			if(!lookAroundActivated) lookAroundActivated = true;
+			else lookAroundActivated = false;
+			}
+		} else lookAroundActivated = false;
+	} else {
+		if (Input.GetKeyDown (KeyCode.C)) {
+			if(!lookAroundActivated) lookAroundActivated = true;
+			else lookAroundActivated = false;
+		}
+	}
+
+	if (cPressed) button.interactable = true;
+
+
+		// focus on fire element
+		if(sentence == 6 || sentence == 5) cameraChange(targetFire);
+		else if(sentence == 4) cameraChange(targetEarth);
+		else if(sentence == 3) cameraChange(targetLava);
+		else if(sentence == 1) cameraChange(targetHuman);
 
 
 		Vector3 desiredPosition = target.position + offset;
@@ -116,12 +156,19 @@ public class ThirdPersonCamera : MonoBehaviour
 		handleZoom();
 
 		} else {
-		transform.LookAt(target);
 		camIcon.sprite = lockedCam;
 		dstFromTarget = 4;
+		if (sentence > 6 || sentence < 1) transform.LookAt(target);
 		}
 
 		if (islandIsMoving) StartCoroutine("Shake");
+	}
+
+	private void cameraChange(Transform target) {
+		float speed = 1.0f;
+		float step =  speed * Time.deltaTime; // calculate distance to move
+        transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+		transform.LookAt(target);
 	}
 
 	private void handleZoom() {
@@ -140,7 +187,7 @@ public class ThirdPersonCamera : MonoBehaviour
 			dstFromTarget += zoomChangeAmount * Time.deltaTime;
      }
 
-	 dstFromTarget = Mathf.Clamp(dstFromTarget, 4f, 8f);
+	 dstFromTarget = Mathf.Clamp(dstFromTarget, 3.7f, 8.3f);
 
 	}
 

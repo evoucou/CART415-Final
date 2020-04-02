@@ -23,6 +23,14 @@ public class PickUp : MonoBehaviour
     public Sprite inactiveP;
     private Image stateP;
 
+    public GameObject DialogueManager;
+	private DialogueManager DialogueScript;
+	private int sentence;
+	public Animator dialogueState;
+    public Button button;
+
+    private bool cannotPickup;
+
 
     void Start()
     {
@@ -36,12 +44,15 @@ public class PickUp : MonoBehaviour
 
         // Look for all active elements in the game and put in array
         elements = GameObject.FindGameObjectsWithTag("Element");
+        DialogueScript = DialogueManager.GetComponent<DialogueManager>();
+        cannotPickup = false;
 
     }
 
     void FixedUpdate()
     {
 
+        sentence = DialogueScript.dialogueIndex();
         inRange = false;
 
         //If someone presses the button, this parents the element to the selected empty.
@@ -65,17 +76,30 @@ public class PickUp : MonoBehaviour
                 inRange = true;
                 element = obj;
                 // myText.SetActive(true);
-                stateP.sprite = activeP;
+                if (!cannotPickup) stateP.sprite = activeP;
                 break;
                 } else stateP.sprite = inactiveP;
              }
 
 
         if (Input.GetKeyDown (KeyCode.P)) {
-            PickUpObj();
-            buttonDown = true;
-        }   
-    }
+            if (!cannotPickup) PickUpObj();
+            buttonDown = true;        
+        } 
+
+         if (dialogueState.GetBool("isOpen")) {
+            string name;
+             if(sentence == 6) {
+                 cannotPickup = false;
+            button.interactable = false;
+            if(buttonDown && inRange) {
+            name = element.transform.GetChild(0).gameObject.tag;
+             if (name == "Fire") button.interactable = true;
+                }
+            } else cannotPickup = true;
+        } else cannotPickup = false;
+    }  
+
     
 
     public void PickUpObj()

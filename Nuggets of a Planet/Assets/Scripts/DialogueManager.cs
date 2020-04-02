@@ -48,7 +48,7 @@ public class DialogueManager : MonoBehaviour
         // string firstWord = sentence.Substring(0, firstSpaceIndex);
 
         index = sentences.Count;
-        //Debug.Log(index);
+        Debug.Log(index);
         StopAllCoroutines();
         StartCoroutine(TypeSentence(sentence));
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -29,15 +30,24 @@ public class PlayerController : MonoBehaviour
 	private DialogueManager DialogueScript;
 	private int sentence;
 
+	public Button button;
+	// public Sprite able;
+	// public Sprite disable;
+	
+	private bool timeElapsed = false;
+
 	void Start () {
 		animator = GetComponent<Animator> ();
 		cameraT = Camera.main.transform;
 		controller = GetComponent<CharacterController>();
 
 		DialogueScript = DialogueManager.GetComponent<DialogueManager>();
+		//button = GetComponent<UnityEngine.UI.Button>();
+	
 	}
 
 	void FixedUpdate() {
+
 
 		// Know which sentence is displayed
 		sentence = DialogueScript.dialogueIndex();
@@ -50,7 +60,15 @@ public class PlayerController : MonoBehaviour
 		// if tutorial is open, can't move, unless it's the 'use arrows to move' dialogue
 		if (!dialogueState.GetBool("isOpen")) Move (inputDir, running);
 		else {
-			if(sentence == 6 || sentence <= 4) Move (inputDir, running);
+			if (sentence == 8) {
+				Move (inputDir, running);
+				if (!timeElapsed) button.interactable = false;
+				else button.interactable = true;
+
+				StartCoroutine(delayNextSentence());
+
+			}
+			if(sentence == 8 || sentence == 6 || sentence <= 4 && sentence > 1) Move (inputDir, running);
 		}
 
 		if (Input.GetKeyDown (KeyCode.Space)) {
@@ -61,6 +79,15 @@ public class PlayerController : MonoBehaviour
 		animator.SetFloat ("speedPercent", animationSpeedPercent, speedSmoothTime, Time.deltaTime);
 
 	}
+
+	   private IEnumerator delayNextSentence()
+    {
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(5);
+		timeElapsed = true;
+        //button.image.overrideSprite = able;
+        
+    }
 
 	void Move(Vector2 inputDir, bool running) {
 
