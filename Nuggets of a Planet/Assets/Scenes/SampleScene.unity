@@ -1870,6 +1870,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8542682051712048188, guid: 667332e19b38b4b05a48bf7063d24f58,
+        type: 3}
+      propertyPath: DialogueManager
+      value: 
+      objectReference: {fileID: 72465880}
+    - target: {fileID: 8542682051712048188, guid: 667332e19b38b4b05a48bf7063d24f58,
+        type: 3}
+      propertyPath: dialogueState
+      value: 
+      objectReference: {fileID: 1995138010}
+    - target: {fileID: 8542682051712048188, guid: 667332e19b38b4b05a48bf7063d24f58,
+        type: 3}
+      propertyPath: button
+      value: 
+      objectReference: {fileID: 2062655216}
     m_RemovedComponents:
     - {fileID: 8957455737998560875, guid: 667332e19b38b4b05a48bf7063d24f58, type: 3}
     - {fileID: 471316055761409275, guid: 667332e19b38b4b05a48bf7063d24f58, type: 3}
@@ -2100,19 +2115,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
     sentences:
-    - Hello there! It seems like you are new here. Let me walk you through it.
-    - First, try moving Onye with the keyboard arrows.
-    - Great! You can unlock camera rotation with the 'C' key on your keyboard to look
-      around. Use your mouse wheel to zoom in or out.
-    - Walk up to this island and use the 'P' key to pick up the fire element.
-    - Great. If you look in your bag, you can see which element you are currently
-      holdidng.
-    - Now, walk up to this island and press the 'M' key to mix, or combine, both elements.
-    - Congratulations, you have created your first new alchemy element!
-    - You can now use it and combine it with other elements.
-    - Now that you have all the information that you need, your first goal is to create
-      a human to unlock the Human Island.
-    - Good luck! If you need a hint, you can use the hint button.
+    - 'Hello there! I am Nugget of a Planet''s Tutorial. I will help you get started!
+      Click next when you are ready. '
+    - 'Simple things first: move Onye with the four arrows on your keyboard. Press
+      Shift to run (not implemented yet).'
+    - You can unlock the camera rotation with the 'C' key to look around. Use your
+      mouse wheel to zoom in or out.
+    - Now, you need to learn how to mix elements. Walk up to that island and use the
+      'P' key to pick up the fire element.
+    - The element that you are currently holding always appears in your bag on the
+      top right corner.
+    - Now, walk up to the earth island and press the 'M' key to mix, or combine, fire
+      with earth.
+    - Congratulations, you have created your first new alchemy element, lava! It's
+      that simple.
+    - You can now use it and combine it with other elements, just as you did with
+      fire.
+    - Your first goal is to unlock your first Special Island, the Human Island, by
+      creating a series of elements that lead to the creation of the human element.
+    - Keep in mind that you will need the human element to create other important
+      elements that lead to unlocking the other Special Islands.
+    - I have indicated which platforms you need, however, you need to figure out the
+      order. Once you have completed that first goal, the tutorial will be completed.
 --- !u!114 &315470021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8917,10 +8941,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 5b24c23e5f9e943fe964ebbaf6e69edb, type: 3}
-    m_FontSize: 14
+    m_FontSize: 13
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0

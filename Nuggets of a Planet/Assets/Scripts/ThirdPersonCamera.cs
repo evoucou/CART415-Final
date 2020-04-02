@@ -111,7 +111,7 @@ public class ThirdPersonCamera : MonoBehaviour
 	// }
 
 	if (dialogueState.GetBool("isOpen")) {
-		if(sentence == 7) {
+		if(sentence == 8) {
 		button.interactable = false;
 		if (Input.GetKeyDown (KeyCode.C)) 
 			{
@@ -131,10 +131,10 @@ public class ThirdPersonCamera : MonoBehaviour
 
 
 		// focus on fire element
-		if(sentence == 6 || sentence == 5) cameraChange(targetFire);
-		else if(sentence == 4) cameraChange(targetEarth);
-		else if(sentence == 3) cameraChange(targetLava);
-		else if(sentence == 1) cameraChange(targetHuman);
+		if(sentence == 7 || sentence == 6) cameraChange(targetFire);
+		else if(sentence == 5) cameraChange(targetEarth);
+		else if(sentence == 4) cameraChange(targetLava);
+		else if(sentence == 2) cameraChange(targetHuman);
 
 
 		Vector3 desiredPosition = target.position + offset;
@@ -158,7 +158,7 @@ public class ThirdPersonCamera : MonoBehaviour
 		} else {
 		camIcon.sprite = lockedCam;
 		dstFromTarget = 4;
-		if (sentence > 6 || sentence < 1) transform.LookAt(target);
+		if (sentence > 7 || sentence < 2) transform.LookAt(target);
 		}
 
 		if (islandIsMoving) StartCoroutine("Shake");

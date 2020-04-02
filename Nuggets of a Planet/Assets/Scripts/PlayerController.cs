@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
 		// if tutorial is open, can't move, unless it's the 'use arrows to move' dialogue
 		if (!dialogueState.GetBool("isOpen")) Move (inputDir, running);
 		else {
-			if (sentence == 8) {
+			if (sentence == 9) {
 				Move (inputDir, running);
 				if (!timeElapsed) button.interactable = false;
 				else button.interactable = true;
@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
 				StartCoroutine(delayNextSentence());
 
 			}
-			if(sentence == 8 || sentence == 6 || sentence <= 4 && sentence > 1) Move (inputDir, running);
+			if(sentence == 9 || sentence == 7 || sentence == 5 ) Move (inputDir, running);
 		}
 
 		if (Input.GetKeyDown (KeyCode.Space)) {

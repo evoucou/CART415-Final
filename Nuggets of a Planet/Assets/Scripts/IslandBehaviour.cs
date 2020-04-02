@@ -117,7 +117,7 @@ public class IslandBehaviour : MonoBehaviour
 
         if (dialogueState.GetBool("isOpen")) {
             //Debug.Log("Dialogue is open");
-            if(sentence == 4) { 
+            if(sentence == 5) { 
                 button.interactable = false;
             
         if (Input.GetKeyDown(KeyCode.M)) {

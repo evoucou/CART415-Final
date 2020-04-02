@@ -89,7 +89,7 @@ public class PickUp : MonoBehaviour
 
          if (dialogueState.GetBool("isOpen")) {
             string name;
-             if(sentence == 6) {
+             if(sentence == 7) {
                  cannotPickup = false;
             button.interactable = false;
             if(buttonDown && inRange) {
