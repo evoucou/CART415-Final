@@ -64,6 +64,8 @@ public class IslandBehaviour : MonoBehaviour
 
     private ElementBehaviour elementScript;
     private string mostRecentIsland;
+
+    private GameObject[] highlights;
  
     void Start()
     {
@@ -96,6 +98,8 @@ public class IslandBehaviour : MonoBehaviour
         islandIsMoving = false;
         islandIsAtTop = false;
         combinationExists = false;
+
+        highlights = GameObject.FindGameObjectsWithTag("Highlight");
 
     }
 
@@ -130,6 +134,13 @@ public class IslandBehaviour : MonoBehaviour
                         }
                     }
                 }
+            } else if (sentence == 0) {
+            foreach (GameObject highlight in highlights) {
+            Transform pulse = highlight.transform.Find("Pulse");
+            pulse.GetComponent<SpriteRenderer>().enabled = true;
+            Transform particle = highlight.transform.Find("Streaks");
+            particle.GetComponent<ParticleSystem>().Play();
+         }
             }
         } else {
             if (Input.GetKeyDown(KeyCode.M)) {

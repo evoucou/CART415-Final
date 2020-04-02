@@ -42,6 +42,7 @@ TagManager:
   - Beast
   - Horse
   - camIcon
+  - Highlight
   layers:
   - Default
   - TransparentFX
