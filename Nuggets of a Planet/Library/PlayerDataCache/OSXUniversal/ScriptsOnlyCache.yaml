@@ -2,6 +2,7 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - BagUI
+    - ButtonManager
     - DialogueManager
     - DialogueTrigger
     - ElementBehaviour
@@ -150,6 +151,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 11998}
     - Class: 114
       Script: {instanceID: 44320}
+    - Class: 114
+      Script: {instanceID: 244088}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -371,7 +374,7 @@ ScriptsOnlyBuild:
     className: NetworkProximityChecker
   - hash:
       serializedVersion: 2
-      Hash: d89831f2705fd9045a1682e03286d8a1
+      Hash: 8a5e7b97369998ba0f6f19f6635e190a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
@@ -653,7 +656,7 @@ ScriptsOnlyBuild:
     className: NetworkBehaviour
   - hash:
       serializedVersion: 2
-      Hash: b8f2af10d8f61109fe9a2c6c11e78bbd
+      Hash: 852ed62e5f1905362c2c0eb829de79dd
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PickUp
@@ -755,7 +758,7 @@ ScriptsOnlyBuild:
     className: BaseInput
   - hash:
       serializedVersion: 2
-      Hash: c8e35f38773f9935ca5e8a487bd7e55c
+      Hash: 843f710766400ed5127ebb53b0c96f14
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ThirdPersonCamera
@@ -843,6 +846,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Pulse
+  - hash:
+      serializedVersion: 2
+      Hash: 1c16ca076f99f04804b9be90ba2c93ab
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ButtonManager
   platform: 2
   scenePathNames:
   - Assets/Scenes/SampleScene.unity

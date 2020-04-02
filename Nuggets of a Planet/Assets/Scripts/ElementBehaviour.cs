@@ -117,6 +117,7 @@ public class ElementBehaviour : MonoBehaviour
             //Debug.Log("num : "+num);
             
             if (newIsland) {
+       
 
             var firstSpaceIndex = islandScript.recentIsland().IndexOf(" ");
 
@@ -159,7 +160,7 @@ public class ElementBehaviour : MonoBehaviour
                     dustParticles.maxParticles = 15;
                 }
 
-                checkIfVisitedNew();
+                checkIfVisitedNew(element);
             }
 
             
@@ -260,13 +261,15 @@ public class ElementBehaviour : MonoBehaviour
 
     // }
 
-        private void checkIfVisitedNew() {
+        private void checkIfVisitedNew(GameObject el) {
+
+            Debug.Log(el);
 
             //element.transform.localScale += new Vector3(0.02f, 0.02f, 0.02f);
 
             GameObject player = GameObject.Find("Player");
             
-            float dist = Vector3.Distance(player.transform.position, element.transform.position);
+            float dist = Vector3.Distance(player.transform.position, el.transform.position);
             float minDist = 0.8f;
 
             if (dist < minDist) {

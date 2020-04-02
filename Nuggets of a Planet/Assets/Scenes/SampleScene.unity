@@ -2121,8 +2121,8 @@ MonoBehaviour:
       Shift to run.'
     - You can unlock the camera rotation with the 'C' key to look around. Use your
       mouse wheel to zoom in or out.
-    - Now, you need to learn how to mix elements. Walk up to that island and use the
-      'P' key to pick up the fire element.
+    - Now, you need to learn how to mix elements (Fire, water, air...) Walk up to
+      that island and use the 'P' key to pick up the fire element.
     - The element that you are currently holding always appears in your bag on the
       top right corner.
     - Now, walk up to the earth island and press the 'M' key to mix, or combine, fire
@@ -7814,7 +7814,6 @@ MonoBehaviour:
   inactiveP: {fileID: 0}
   DialogueManager: {fileID: 0}
   dialogueState: {fileID: 0}
-  button: {fileID: 0}
 --- !u!23 &467774140
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7898,7 +7897,6 @@ MonoBehaviour:
   turnSmoothTime: 0.2
   speedSmoothTime: 0.1
   DialogueManager: {fileID: 0}
-  button: {fileID: 0}
 --- !u!65 &467774144
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8450,7 +8448,6 @@ MonoBehaviour:
   unlockedCam: {fileID: 21300000, guid: 6f6e828deb45c48e886ee31b229e1743, type: 3}
   DialogueManager: {fileID: 72465880}
   dialogueState: {fileID: 1995138010}
-  button: {fileID: 2062655216}
 --- !u!1 &551942041
 GameObject:
   m_ObjectHideFlags: 0
@@ -11557,7 +11554,6 @@ MonoBehaviour:
   inactiveP: {fileID: 21300000, guid: 91deb34d5e5564f63944544f753e8ae6, type: 3}
   DialogueManager: {fileID: 72465880}
   dialogueState: {fileID: 1995138010}
-  button: {fileID: 2062655216}
 --- !u!114 &1125250301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11579,7 +11575,6 @@ MonoBehaviour:
   turnSmoothTime: 0.2
   speedSmoothTime: 0.1
   DialogueManager: {fileID: 72465880}
-  button: {fileID: 2062655216}
 --- !u!64 &1125250302
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -20682,6 +20677,7 @@ GameObject:
   - component: {fileID: 2062655218}
   - component: {fileID: 2062655217}
   - component: {fileID: 2062655216}
+  - component: {fileID: 2062655219}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -20799,6 +20795,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2062655214}
   m_CullTransparentMesh: 0
+--- !u!114 &2062655219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062655214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5449d62d51c44544a704910536023c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueManagerObj: {fileID: 72465880}
+  player: {fileID: 1125250299}
+  island: {fileID: 631129379}
 --- !u!1 &2067340053
 GameObject:
   m_ObjectHideFlags: 0
@@ -22988,6 +22999,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lava Island
       objectReference: {fileID: 0}
+    - target: {fileID: 4542635659879450986, guid: 667332e19b38b4b05a48bf7063d24f58,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 671589160401107833, guid: 667332e19b38b4b05a48bf7063d24f58,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -23215,6 +23231,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LavaPulse
+      objectReference: {fileID: 0}
+    - target: {fileID: 7652692972876851531, guid: b96d515ea606f438cb9372c3406113fe,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7652692972876851530, guid: b96d515ea606f438cb9372c3406113fe,
         type: 3}

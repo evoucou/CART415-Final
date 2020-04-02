@@ -57,7 +57,7 @@ public class IslandBehaviour : MonoBehaviour
 	private DialogueManager DialogueScript;
 	private int sentence;
 	private Animator dialogueState;
-    private Button button;
+    //private Button button;
 
     // private GameObject myText;
     private Text inRangeElement;
@@ -66,6 +66,9 @@ public class IslandBehaviour : MonoBehaviour
     private string mostRecentIsland;
 
     private GameObject[] highlights;
+    //bool buttonOk = true;
+
+    private bool rightObjToMixTut;
  
     void Start()
     {
@@ -84,7 +87,7 @@ public class IslandBehaviour : MonoBehaviour
         GameObject dialogueBox = canvas.transform.Find("DialogueBox").gameObject;
 
         dialogueState = dialogueBox.GetComponent<Animator>();
-        button = dialogueBox.transform.GetChild(5).gameObject.GetComponent<Button>();
+        // //button = dialogueBox.transform.GetChild(5).gameObject.GetComponent<Button>();
 
 
         DialogueManager = GameObject.Find("DialogueManager");
@@ -99,8 +102,7 @@ public class IslandBehaviour : MonoBehaviour
         islandIsAtTop = false;
         combinationExists = false;
 
-        highlights = GameObject.FindGameObjectsWithTag("Highlight");
-
+        rightObjToMixTut = false;
     }
 
     void FixedUpdate()
@@ -117,36 +119,51 @@ public class IslandBehaviour : MonoBehaviour
         inRange = pickUpScript.PlayerIsInRange();
         
         // Check if this is a valid combination if in range and player has obj
-        
 
-        if (dialogueState.GetBool("isOpen")) {
-            //Debug.Log("Dialogue is open");
-            if(sentence == 5) { 
-                button.interactable = false;
-            
-        if (Input.GetKeyDown(KeyCode.M)) {
-            string name;
-            if(heldObj != null && inRange) { 
-            name = objInRange.transform.GetChild(0).gameObject.tag;
-            if (name == "Earth") {
-                button.interactable = true;
-                checkIfCombinationExists();
-                        }
-                    }
+        // if (dialogueState.GetBool("isOpen")) {
+        //     //Debug.Log("Dialogue is open");
+        //     if(sentence == 5) {
+        // if (Input.GetKeyDown(KeyCode.M)) {
+        //     string name;
+        //     if(heldObj != null && inRange) { 
+        //          Debug.Log("in range");
+        //     name = objInRange.transform.GetChild(0).gameObject.tag;
+        //     if (name == "Earth") {
+        //         Debug.Log("in last one");
+        //         buttonOk = true;
+        //         checkIfCombinationExists();
+        //                 }
+        //             }
+        //         }
+        //     } else if (sentence == 0) {
+        //     foreach (GameObject highlight in highlights) {
+        //     Transform pulse = highlight.transform.Find("Pulse");
+        //     pulse.GetComponent<SpriteRenderer>().enabled = true;
+        //     Transform particle = highlight.transform.Find("Streaks");
+        //     particle.GetComponent<ParticleSystem>().Play();
+        //  }
+        //     }
+        // } else {
+            if (!dialogueState.GetBool("isOpen")) 
+            {
+                if (Input.GetKeyDown(KeyCode.M)) if(heldObj != null && inRange) checkIfCombinationExists(); else return;
+            } else {
+                if(sentence == 5) if (Input.GetKeyDown(KeyCode.M)) if(inRange) {
+                    string name = objInRange.transform.GetChild(0).gameObject.tag;
+                    if (name == "Earth") {
+                        // Debug.Log("held: " +heldObj);
+                        // Debug.Log(objInRange);
+                        checkIfCombinationExists();
+                        // IslandUpTutorial();
+                        // if (heldObj != null) heldObj.gameObject.GetComponent<Renderer>().enabled = false;
+                        rightObjToMixTut = true;
+                    } // if earth
                 }
-            } else if (sentence == 0) {
-            foreach (GameObject highlight in highlights) {
-            Transform pulse = highlight.transform.Find("Pulse");
-            pulse.GetComponent<SpriteRenderer>().enabled = true;
-            Transform particle = highlight.transform.Find("Streaks");
-            particle.GetComponent<ParticleSystem>().Play();
+            
          }
-            }
-        } else {
-            if (Input.GetKeyDown(KeyCode.M)) {
-            if(heldObj != null && inRange) checkIfCombinationExists(); else return;     
-            }
-        }
+            
+        
+    
 
         //          if (dialogueState.GetBool("isOpen")) {
         //     string name;
@@ -268,6 +285,30 @@ public class IslandBehaviour : MonoBehaviour
 
         //  if (islandIsMoving) if (island.transform.position.y < 0) island.transform.Translate(Vector3.up * Time.deltaTime, Space.World); else islandIsAtTop = true;
     }
+
+    // private void IslandUpTutorial() {
+
+    //     //string islandName = "Lava Island";
+    //     GameObject island = GameObject.Find("Lava Island");
+    //     rb = island.GetComponent<Rigidbody>();
+
+    //                 if (island.transform.position.y < 0.5)
+    //                 {
+    //                     // island.transform.Translate(Vector3.up * Time.deltaTime, Space.World);
+    //                     Vector3 dir = new Vector3(0, 1, 0);
+    //                     dir = dir.normalized * speed * Time.deltaTime;
+    //                     rb.MovePosition(island.transform.position + dir);
+    //                     islandIsMoving = true;                
+                        
+    //                 } else {
+    //                     elementScript.ElementReveal("Lava Island");
+    //                     destroyWalls("Lava Island", island);
+
+    //                     islandIsAtTop = true;
+    //                     islandIsMoving = false;
+    //                     mostRecentIsland = "Lava Island";
+    //                 }
+    // }
 
     public void islandRise(string islandName, string desiredHeldElementName, string desiredFixedElementName, GameObject heldElement, GameObject fixedElement)
     {
@@ -401,7 +442,7 @@ public class IslandBehaviour : MonoBehaviour
         if (heldName == "Energy") if (groundName == "Swamp") if(!lifeUp) combinationExists = true;
         if (heldName == "Swamp") if (groundName == "Energy") if(!lifeUp) combinationExists = true;
 
-        // LAVA
+        //LAVA
         if (heldName == "Fire") if (groundName == "Earth") if(!lavaUp) combinationExists = true;
         if (heldName == "Earth") if (groundName == "Fire") if(!lavaUp) combinationExists = true;
 
@@ -919,6 +960,10 @@ public class IslandBehaviour : MonoBehaviour
             public GameObject GetHeldObject()
     {
         return heldObj;
+    }
+
+    public bool rightElementToMix() {
+        return rightObjToMixTut;
     }
         
 }

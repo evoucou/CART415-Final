@@ -27,9 +27,10 @@ public class PickUp : MonoBehaviour
 	private DialogueManager DialogueScript;
 	private int sentence;
 	public Animator dialogueState;
-    public Button button;
+    //public Button button;
 
     private bool cannotPickup;
+    private bool rightObjPickedUpTut;
 
 
     void Start()
@@ -46,6 +47,8 @@ public class PickUp : MonoBehaviour
         elements = GameObject.FindGameObjectsWithTag("Element");
         DialogueScript = DialogueManager.GetComponent<DialogueManager>();
         cannotPickup = false;
+
+        rightObjPickedUpTut = false;
 
     }
 
@@ -87,17 +90,33 @@ public class PickUp : MonoBehaviour
             buttonDown = true;        
         } 
 
-         if (dialogueState.GetBool("isOpen")) {
-            string name;
-             if(sentence == 7) {
-                 cannotPickup = false;
-            button.interactable = false;
-            if(buttonDown && inRange) {
-            name = element.transform.GetChild(0).gameObject.tag;
-             if (name == "Fire") button.interactable = true;
-                }
-            } else cannotPickup = true;
-        } else cannotPickup = false;
+        //  if (dialogueState.GetBool("isOpen")) {
+        //     //string name;
+        //      if(sentence == 7) {
+        //          cannotPickup = false;
+        //     //button.interactable = false;
+        //     // if(buttonDown && inRange) name = element.transform.GetChild(0).gameObject.tag;
+        //     //  if (name == "Fire") button.interactable = true;
+        //     //     }
+        //     } else cannotPickup = true;
+        // } else cannotPickup = false;
+
+               if (dialogueState.GetBool("isOpen")) {
+               if(sentence == 7) {
+              if(inRange) { 
+                        name = element.transform.GetChild(0).gameObject.tag;
+                    if (buttonDown) {
+                    if(name == "Fire") rightObjPickedUpTut = true;
+                    else buttonDown = false;
+                    }
+              }        
+                 if(rightObjPickedUpTut) cannotPickup = true;
+                 else cannotPickup = false;
+
+               } else cannotPickup = true;
+               } else cannotPickup = false;
+
+            
     }  
 
     
@@ -122,6 +141,10 @@ public class PickUp : MonoBehaviour
     public bool PlayerIsInRange()
     {
         return inRange;
+    }
+
+    public bool rightElementPickedUp() {
+        return rightObjPickedUpTut;
     }
 
     public GameObject GetElementInRange()

@@ -46,8 +46,8 @@ public class ThirdPersonCamera : MonoBehaviour
 	private int sentence;
 	public Animator dialogueState;
 
-	public Button button;
-	private bool cPressed = false;
+	//public Button button;
+	//private bool cPressed = false;
 
 	// 	// Transform of the camera to shake. Grabs the gameObject's transform
 	// // if null.
@@ -112,10 +112,8 @@ public class ThirdPersonCamera : MonoBehaviour
 
 	if (dialogueState.GetBool("isOpen")) {
 		if(sentence == 8) {
-		button.interactable = false;
 		if (Input.GetKeyDown (KeyCode.C)) 
 			{
-			cPressed = true;
 			if(!lookAroundActivated) lookAroundActivated = true;
 			else lookAroundActivated = false;
 			}
@@ -127,13 +125,13 @@ public class ThirdPersonCamera : MonoBehaviour
 		}
 	}
 
-	if (cPressed) button.interactable = true;
+	//if (cPressed) button.interactable = true;
 
 
 		// focus on fire element
-		if(sentence == 7 || sentence == 6) cameraChange(targetFire);
+		if(sentence <= 7&& sentence >= 6) cameraChange(targetFire);
 		else if(sentence == 5) cameraChange(targetEarth);
-		else if(sentence == 4) cameraChange(targetLava);
+		else if(sentence <= 4 && sentence >= 3) cameraChange(targetLava);
 		else if(sentence == 2) cameraChange(targetHuman);
 
 

@@ -30,11 +30,9 @@ public class PlayerController : MonoBehaviour
 	private DialogueManager DialogueScript;
 	private int sentence;
 
-	public Button button;
+	//public Button button;
 	// public Sprite able;
 	// public Sprite disable;
-	
-	private bool timeElapsed = false;
 
 	void Start () {
 		animator = GetComponent<Animator> ();
@@ -60,14 +58,14 @@ public class PlayerController : MonoBehaviour
 		// if tutorial is open, can't move, unless it's the 'use arrows to move' dialogue
 		if (!dialogueState.GetBool("isOpen")) Move (inputDir, running);
 		else {
-			if (sentence == 9) {
-				Move (inputDir, running);
-				if (!timeElapsed) button.interactable = false;
-				else button.interactable = true;
+			// if (sentence == 9) {
+			// 	Move (inputDir, running);
+			// 	if (!timeElapsed) button.interactable = false;
+			// 	else button.interactable = true;
 
-				StartCoroutine(delayNextSentence());
+			// 	StartCoroutine(delayNextSentence());
 
-			}
+			// }
 			if(sentence == 9 || sentence == 7 || sentence == 5 ) Move (inputDir, running);
 		}
 
@@ -79,15 +77,6 @@ public class PlayerController : MonoBehaviour
 		animator.SetFloat ("speedPercent", animationSpeedPercent, speedSmoothTime, Time.deltaTime);
 
 	}
-
-	   private IEnumerator delayNextSentence()
-    {
-        //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(5);
-		timeElapsed = true;
-        //button.image.overrideSprite = able;
-        
-    }
 
 	void Move(Vector2 inputDir, bool running) {
 
