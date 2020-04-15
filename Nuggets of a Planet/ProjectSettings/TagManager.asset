@@ -43,6 +43,7 @@ TagManager:
   - Horse
   - camIcon
   - Highlight
+  - triggerBtn
   layers:
   - Default
   - TransparentFX

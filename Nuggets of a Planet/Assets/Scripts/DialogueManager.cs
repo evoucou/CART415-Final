@@ -8,7 +8,6 @@ public class DialogueManager : MonoBehaviour
     public Text dialogueText;
     private Queue<string> sentences;
     private int index = 0;
-
     public Animator animator;
 
 
@@ -22,7 +21,7 @@ public class DialogueManager : MonoBehaviour
 
         animator.SetBool("isOpen", true);
 
-        //Debug.Log("Starting Conversation");
+        // Debug.Log("Starting Conversation");
 
         sentences.Clear();
 
@@ -37,6 +36,8 @@ public class DialogueManager : MonoBehaviour
         }
         DisplayNextSentence();
     }
+
+
     public void DisplayNextSentence() {
         if(sentences.Count == 0) {
             EndDialogue();
@@ -49,16 +50,21 @@ public class DialogueManager : MonoBehaviour
 
         index = sentences.Count;
         Debug.Log(index);
-        StopAllCoroutines();
-        StartCoroutine(TypeSentence(sentence));
+        dialogueText.text = sentence;
+        //StopAllCoroutines();
+        //StartCoroutine(TypeSentence(sentence));
 
         //Debug.Log("\nContents of the first copy:");
     }
 
     IEnumerator TypeSentence (string sentence) {
         dialogueText.text = "";
+        // Debug.Log(sentence);
         foreach (char letter in sentence.ToCharArray())
         {
+
+            Debug.Log(dialogueText.text);
+
             dialogueText.text += letter;
             yield return null;
         }
@@ -67,6 +73,7 @@ public class DialogueManager : MonoBehaviour
     void EndDialogue() {
         //Debug.Log("End of conversation");
          animator.SetBool("isOpen", false);
+
     }
 
     public int dialogueIndex() {

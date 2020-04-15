@@ -11,6 +11,10 @@ public class ButtonManager : MonoBehaviour
     private DialogueManager dialogueManager;
     private int sentence;
 
+    public GameObject bag;
+
+    // private GameObject button;
+
     float timeLeft = 5f;
 
     public GameObject dialogueManagerObj;
@@ -63,10 +67,22 @@ public class ButtonManager : MonoBehaviour
             reactivateButton(CKey);
         }  else if(sentence == 7) {
             buttonDeactivated = true;
-            if(pickup.rightElementPickedUp()) reactivateButton(PKey);
-        } else if(sentence == 5) {
+            if(pickup.rightElementPickedUp()) {
+                reactivateButton(PKey);
+                dialogueManager.DisplayNextSentence();
+                buttonDeactivated = false;
+            }
+        } else if (sentence == 6) {
+            bag.GetComponent<Pulse>().enabled = true;
+        }
+        else if(sentence == 5) {
+            bag.GetComponent<Pulse>().enabled = false;
             buttonDeactivated = true;
-            if(islandBehaviour.rightElementToMix()) buttonDeactivated = false;
+            // GameObject.SetActive(false);
+            if(islandBehaviour.rightElementToMix()) {
+                dialogueManager.DisplayNextSentence();
+                buttonDeactivated = false;
+            }
         }  else if(sentence == 0) {
             foreach (GameObject highlight in highlights) {
             Transform pulse = highlight.transform.Find("Pulse");

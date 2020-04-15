@@ -7,6 +7,8 @@ public class PickUp : MonoBehaviour
 {
 
     public Transform grabPoint;
+    public GameObject island;
+    private IslandBehaviour islandScript;
 
     private bool inRange;
     private bool buttonDown;
@@ -31,12 +33,15 @@ public class PickUp : MonoBehaviour
 
     private bool cannotPickup;
     private bool rightObjPickedUpTut;
+    private bool islandMoving;
 
     private string name;
 
 
     void Start()
     {
+        islandScript = island.GetComponent<IslandBehaviour>();
+
         GameObject canvas = GameObject.FindGameObjectWithTag("MainCanvas");
         stateP = canvas.transform.Find("PKey").gameObject.GetComponent<Image>();
         
@@ -56,6 +61,11 @@ public class PickUp : MonoBehaviour
 
     void FixedUpdate()
     {
+
+        islandMoving = islandScript.islandMoving();
+
+        if (islandMoving) cannotPickup = true;
+        else cannotPickup = false;
 
         sentence = DialogueScript.dialogueIndex();
         inRange = false;

@@ -54,9 +54,14 @@ public class ElementBehaviour : MonoBehaviour
         private GameObject element;
 
         private GameObject[] elements;
+        //TUTORIAL HIGHLIGHTS
+        // private GameObject[] highlights;
+        // private ParticleSystem.EmissionModule tutDustEm;
+        // private ParticleSystem.EmissionModule tutStreaksEm;
+        // private ParticleSystem.MainModule tutDustParticles;
+        // private ParticleSystem.MainModule tutStreaksParticles;
 
         void Start() {
-            
 
             // elements = GameObject.FindGameObjectsWithTag("Element");
 
@@ -80,6 +85,24 @@ public class ElementBehaviour : MonoBehaviour
             //     m.DisableKeyword("_ALPHAPREMULTIPLY_ON");
 
             //     m.renderQueue = 3000;
+            // }
+
+            // highlights = GameObject.FindGameObjectsWithTag("Highlight");
+            // foreach (GameObject highlight in highlights) {
+            // GameObject tutDustObj = highlight.transform.GetChild(0).gameObject;
+            // GameObject tutStreaksObj = highlight.transform.GetChild(1).gameObject;
+
+            // ParticleSystem tutDust = tutDustObj.GetComponent<ParticleSystem>();
+            // ParticleSystem tutStreaks = tutStreaksObj.GetComponent<ParticleSystem>();
+
+            // tutDustParticles = tutDust.main;
+            // tutStreaksParticles = tutStreaks.main;    
+
+            // tutDustEm = tutDust.emission;
+            // tutStreaksEm = tutStreaks.emission;
+
+            // tutDustEm.enabled = false;
+            // tutStreaksEm.enabled = false;
             // }
             
 
@@ -126,6 +149,9 @@ public class ElementBehaviour : MonoBehaviour
 
             streaksEm.enabled = true;
             dustEm.enabled =  true;
+
+            // tutStreaksEm.enabled = true;
+            // tutDustEm.enabled =  true;
 
                         // .material getter clones the material, 
             // so cache this copy in a member variable so we can dispose of it when we're done.
@@ -263,8 +289,6 @@ public class ElementBehaviour : MonoBehaviour
 
         private void checkIfVisitedNew(GameObject el) {
 
-            Debug.Log(el);
-
             //element.transform.localScale += new Vector3(0.02f, 0.02f, 0.02f);
 
             GameObject player = GameObject.Find("Player");
@@ -273,12 +297,14 @@ public class ElementBehaviour : MonoBehaviour
             float minDist = 0.8f;
 
             if (dist < minDist) {
+            // checkIfTutorialHighlight(el);
             streaksEm.enabled = false;
             dustEm.enabled =  false;
             newIsland = false;
 
             }
         }
+
 
         // public void DeactivateHalo(string islandName, bool inRange, GameObject nearestElement) {
         // var firstSpaceIndex = islandName.IndexOf(" ");

@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d724aa3a1bc864514a9e95a385577209, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pulseTransform: {fileID: 7652692973372357393}
 --- !u!1 &7652692973077475749
 GameObject:
   m_ObjectHideFlags: 0

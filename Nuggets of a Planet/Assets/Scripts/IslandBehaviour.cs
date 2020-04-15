@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class IslandBehaviour : MonoBehaviour
 {
+    // public EndDialogue endDialogue;
  
     private PickUp pickUpScript;
     private GameObject heldObj;
@@ -65,7 +66,7 @@ public class IslandBehaviour : MonoBehaviour
     private ElementBehaviour elementScript;
     private string mostRecentIsland;
 
-    private GameObject[] highlights;
+    // private GameObject[] highlights;
     //bool buttonOk = true;
 
     private bool rightObjToMixTut;
@@ -392,7 +393,6 @@ public class IslandBehaviour : MonoBehaviour
         
         Material _myMaterial = island.GetComponent<Renderer>().material;
 
-
         string heldElementName = heldElement.transform.GetChild(0).gameObject.tag;
         string fixedElementName = fixedElement.transform.GetChild(0).gameObject.tag;
 
@@ -419,7 +419,6 @@ public class IslandBehaviour : MonoBehaviour
                 islandIsAtTop = true;
                 islandIsMoving = false;
                 mostRecentIsland = islandName;
-
                 }
             }
     }
@@ -912,7 +911,35 @@ public class IslandBehaviour : MonoBehaviour
             horseUp = true;
         }
 
+        checkIfTutorialHighlight(name);
+
     }
+
+         private void checkIfTutorialHighlight(string islandName) {
+
+            var firstSpaceIndex = islandName.IndexOf(" ");
+            string elementName = islandName.Substring(0, firstSpaceIndex);
+
+            GameObject highlight;
+
+            // string name = element.transform.GetChild(0).gameObject.tag;
+
+            if (elementName == "Swamp" | elementName == "Stone" | elementName == "Sand" | elementName == "Energy" | elementName == "Clay" | elementName == "Life" | elementName == "Clay" | elementName == "Golem") {
+                
+                string highlightName = elementName + "Pulse";
+               highlight = GameObject.Find(highlightName);
+            //    Debug.Log("highlight has been instantiated as " + highlight);
+            } else highlight = null;
+
+            if(highlight!=null) {
+            // Debug.Log("highlight exists, starting streaks system");
+    
+            Transform pulse = highlight.transform.Find("Pulse");
+            pulse.GetComponent<SpriteRenderer>().enabled = false;
+            Transform particle = highlight.transform.Find("Streaks");
+            particle.GetComponent<ParticleSystem>().Stop();
+            }
+        }
 
 
         public bool islandMoving() {
@@ -964,6 +991,10 @@ public class IslandBehaviour : MonoBehaviour
 
     public bool rightElementToMix() {
         return rightObjToMixTut;
+    }
+
+        public bool isHumanUp() {
+        return humanUp;
     }
         
 }
