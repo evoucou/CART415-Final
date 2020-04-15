@@ -35,6 +35,8 @@ public class PickUp : MonoBehaviour
     private bool rightObjPickedUpTut;
     private bool islandMoving;
 
+    private bool dialogueEnd;
+
     private string name;
 
 
@@ -56,6 +58,7 @@ public class PickUp : MonoBehaviour
         cannotPickup = false;
 
         rightObjPickedUpTut = false;
+        dialogueEnd = islandScript.isHumanUp();
 
     }
 
@@ -113,7 +116,7 @@ public class PickUp : MonoBehaviour
         //     } else cannotPickup = true;
         // } else cannotPickup = false;
 
-               if (dialogueState.GetBool("isOpen")) {
+               if (dialogueState.GetBool("isOpen") && !dialogueEnd) {
                if(sentence == 7) {
               if(inRange) { 
                         name = element.transform.GetChild(0).gameObject.tag;

@@ -11,6 +11,8 @@ public class ButtonManager : MonoBehaviour
     private DialogueManager dialogueManager;
     private int sentence;
 
+    private bool dialogueEnd;
+
     public GameObject bag;
 
     // private GameObject button;
@@ -42,6 +44,7 @@ public class ButtonManager : MonoBehaviour
         pickup = player.GetComponent<PickUp>();
         islandBehaviour = island.GetComponent<IslandBehaviour>();
         highlights = GameObject.FindGameObjectsWithTag("Highlight");
+        dialogueEnd = islandBehaviour.isHumanUp();
 
     }
 
@@ -49,7 +52,7 @@ public class ButtonManager : MonoBehaviour
     void FixedUpdate()
     {
     
-        if(animator.GetBool("isOpen")) {
+        if(animator.GetBool("isOpen") && !dialogueEnd) {
         sentence = dialogueManager.dialogueIndex();
         //if(buttonDeactivated) deactivateButton();
 
@@ -104,6 +107,8 @@ public class ButtonManager : MonoBehaviour
 
         if (buttonDeactivated) GetComponent<UnityEngine.UI.Button>().interactable = false;
         else GetComponent<UnityEngine.UI.Button>().interactable = true;
+        } else if(animator.GetBool("isOpen") && dialogueEnd) {
+            buttonDeactivated = false;
         }
     }
 

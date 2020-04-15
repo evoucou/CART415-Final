@@ -90,6 +90,8 @@ public class IslandBehaviour : MonoBehaviour
         dialogueState = dialogueBox.GetComponent<Animator>();
         // //button = dialogueBox.transform.GetChild(5).gameObject.GetComponent<Button>();
 
+        // shakeScript = canvas.transform.Find("BagImg").GetComponent<Shake>();
+
 
         DialogueManager = GameObject.Find("DialogueManager");
         DialogueScript = DialogueManager.GetComponent<DialogueManager>();
@@ -108,6 +110,8 @@ public class IslandBehaviour : MonoBehaviour
 
     void FixedUpdate()
     {
+
+        //  if (Input.GetKeyDown(KeyCode.M)) shakeScript.wrongCombination();
 
         sentence = DialogueScript.dialogueIndex();
 
@@ -145,10 +149,13 @@ public class IslandBehaviour : MonoBehaviour
         //  }
         //     }
         // } else {
+
             if (!dialogueState.GetBool("isOpen")) 
             {
-                if (Input.GetKeyDown(KeyCode.M)) if(heldObj != null && inRange) checkIfCombinationExists(); else return;
-            } else {
+                if (Input.GetKeyDown(KeyCode.M)) if(heldObj != null && inRange) {
+                    checkIfCombinationExists(); 
+                }
+            } else if (dialogueState.GetBool("isOpen") && !humanUp) {
                 if(sentence == 5) if (Input.GetKeyDown(KeyCode.M)) if(inRange) {
                     string name = objInRange.transform.GetChild(0).gameObject.tag;
                     if (name == "Earth") {
@@ -948,6 +955,11 @@ public class IslandBehaviour : MonoBehaviour
 
         public bool islandAppeared() {
             return islandIsAtTop;
+        }
+
+                
+        public bool doesComboExist() {
+            return combinationExists;
         }
 
         public string recentIsland() {

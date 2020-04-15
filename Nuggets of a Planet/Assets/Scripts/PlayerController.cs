@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour
 	private DialogueManager DialogueScript;
 	private int sentence;
 
+	private bool dialogueEnd;
+	private IslandBehaviour islandScript;
+
 	//public Button button;
 	// public Sprite able;
 	// public Sprite disable;
@@ -41,6 +44,8 @@ public class PlayerController : MonoBehaviour
 
 		DialogueScript = DialogueManager.GetComponent<DialogueManager>();
 		//button = GetComponent<UnityEngine.UI.Button>();
+		islandScript = GameObject.Find("Water Island").GetComponent<IslandBehaviour>();
+		dialogueEnd = islandScript.isHumanUp();
 	
 	}
 
@@ -57,7 +62,7 @@ public class PlayerController : MonoBehaviour
 
 		// if tutorial is open, can't move, unless it's the 'use arrows to move' dialogue
 		if (!dialogueState.GetBool("isOpen")) Move (inputDir, running);
-		else {
+		else if (dialogueState.GetBool("isOpen") && !dialogueEnd) {
 			// if (sentence == 9) {
 			// 	Move (inputDir, running);
 			// 	if (!timeElapsed) button.interactable = false;

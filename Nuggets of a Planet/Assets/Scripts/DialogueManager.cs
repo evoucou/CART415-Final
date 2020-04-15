@@ -51,8 +51,8 @@ public class DialogueManager : MonoBehaviour
         index = sentences.Count;
         Debug.Log(index);
         dialogueText.text = sentence;
-        //StopAllCoroutines();
-        //StartCoroutine(TypeSentence(sentence));
+        StopAllCoroutines();
+        StartCoroutine(TypeSentence(sentence));
 
         //Debug.Log("\nContents of the first copy:");
     }
@@ -63,7 +63,7 @@ public class DialogueManager : MonoBehaviour
         foreach (char letter in sentence.ToCharArray())
         {
 
-            Debug.Log(dialogueText.text);
+            // Debug.Log(dialogueText.text);
 
             dialogueText.text += letter;
             yield return null;

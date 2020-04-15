@@ -19,5 +19,10 @@ public class HumanIsland : MonoBehaviour
     {
         humanCreated = islandScript.isHumanUp();
         if(humanCreated) dialogueScript.TriggerDialogue();
+
     }
+
+    // public bool dialogueFromBeginning() {
+    //     return dialogueBeginning;
+    // }
 }

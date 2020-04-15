@@ -46,6 +46,8 @@ public class ThirdPersonCamera : MonoBehaviour
 	private int sentence;
 	public Animator dialogueState;
 
+	private bool dialogueEnd;
+
 	//public Button button;
 	//private bool cPressed = false;
 
@@ -81,6 +83,7 @@ public class ThirdPersonCamera : MonoBehaviour
 		// }
 
 		IslandScript = island.GetComponent<IslandBehaviour>();
+		dialogueEnd = IslandScript.isHumanUp();
 	}
 
 	void FixedUpdate () {
@@ -110,7 +113,7 @@ public class ThirdPersonCamera : MonoBehaviour
 	// 	}
 	// }
 
-	if (dialogueState.GetBool("isOpen")) {
+	if (dialogueState.GetBool("isOpen") && !dialogueEnd) {
 		if(sentence == 8) {
 		if (Input.GetKeyDown (KeyCode.C)) 
 			{
