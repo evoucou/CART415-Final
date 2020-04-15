@@ -956,8 +956,7 @@ public class IslandBehaviour : MonoBehaviour
         public bool islandAppeared() {
             return islandIsAtTop;
         }
-
-                
+         
         public bool doesComboExist() {
             return combinationExists;
         }

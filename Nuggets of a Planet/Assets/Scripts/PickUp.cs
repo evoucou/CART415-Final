@@ -7,6 +7,7 @@ public class PickUp : MonoBehaviour
 {
 
     public Transform grabPoint;
+    public Transform bagUI;
     public GameObject island;
     private IslandBehaviour islandScript;
 
@@ -17,6 +18,7 @@ public class PickUp : MonoBehaviour
 
     private GameObject element;
     private GameObject elementIcon;
+    private GameObject elementUI;
     private GameObject[] elements;
 
     // public GameObject myText;
@@ -51,6 +53,7 @@ public class PickUp : MonoBehaviour
         buttonDown = false;
         isHolding = false;
         elementIcon = null;
+        elementUI= null;
 
         // Look for all active elements in the game and put in array
         elements = GameObject.FindGameObjectsWithTag("Element");
@@ -82,6 +85,9 @@ public class PickUp : MonoBehaviour
             {
                 elementIcon.transform.position = grabPoint.transform.position;
                 elementIcon.transform.parent = grabPoint.transform;
+
+                elementUI.transform.position = bagUI.transform.position;
+                elementUI.transform.parent = bagUI.transform;
             } 
         } 
 
@@ -142,11 +148,16 @@ public class PickUp : MonoBehaviour
         {
             // If player already holds an item, delete if first
             if (elementIcon != null) Destroy(elementIcon);
+            if (elementUI != null) Destroy(elementUI);
 
             // Instantiate a little element icon in Onye's bag
             elementIcon = Instantiate(element, new Vector3(grabPoint.transform.position.x + 5.0f, grabPoint.transform.position.y, 0), grabPoint.transform.rotation);
             Destroy(elementIcon.GetComponent<Float>());
             elementIcon.transform.localScale += new Vector3(-0.05f, -0.05f, -0.05f);
+
+            // Instantiate a little element icon in Onye's bag UI
+            elementUI = Instantiate(element, new Vector3(bagUI.transform.position.x + 5.0f, bagUI.transform.position.y, 0), bagUI.transform.rotation);
+            elementUI.transform.localScale += new Vector3(-0.05f, -0.05f, -0.05f);
 
             inRange = false;
             isHolding = true;   
