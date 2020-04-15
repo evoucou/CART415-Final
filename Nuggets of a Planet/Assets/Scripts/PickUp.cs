@@ -32,6 +32,8 @@ public class PickUp : MonoBehaviour
     private bool cannotPickup;
     private bool rightObjPickedUpTut;
 
+    private string name;
+
 
     void Start()
     {
