@@ -48,7 +48,7 @@ public class ElementBehaviour : MonoBehaviour
 
         int num = 0;
         int num2 = 0;
-        float alphaIndex = 0;
+        //float alphaIndex = 0;
 
         private bool newIsland;
         private GameObject element;

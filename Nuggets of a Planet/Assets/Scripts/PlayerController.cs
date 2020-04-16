@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
 	private bool dialogueEnd;
 	private IslandBehaviour islandScript;
 
+	public GameObject button;
+
 	//public Button button;
 	// public Sprite able;
 	// public Sprite disable;
@@ -46,11 +48,11 @@ public class PlayerController : MonoBehaviour
 		//button = GetComponent<UnityEngine.UI.Button>();
 		islandScript = GameObject.Find("Water Island").GetComponent<IslandBehaviour>();
 		dialogueEnd = islandScript.isHumanUp();
+		button.GetComponent<DestroyButton>().beginningTrue();
 	
 	}
 
 	void FixedUpdate() {
-
 
 		// Know which sentence is displayed
 		sentence = DialogueScript.dialogueIndex();
@@ -61,7 +63,7 @@ public class PlayerController : MonoBehaviour
 		bool running = Input.GetKey (KeyCode.LeftShift);
 
 		// if tutorial is open, can't move, unless it's the 'use arrows to move' dialogue
-		if (!dialogueState.GetBool("isOpen")) Move (inputDir, running);
+		if (!dialogueState.GetBool("isOpen")) {if(!button.GetComponent<DestroyButton>().isItBeginning()) Move (inputDir, running);}
 		else if (dialogueState.GetBool("isOpen") && !dialogueEnd) {
 			// if (sentence == 9) {
 			// 	Move (inputDir, running);

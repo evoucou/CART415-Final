@@ -27,7 +27,7 @@ public class ButtonManager : MonoBehaviour
 
     private KeyCode CKey = KeyCode.C;
     private KeyCode PKey = KeyCode.P;
-    private KeyCode MKey = KeyCode.M;
+    //private KeyCode MKey = KeyCode.M;
 
     bool keyPressed = false;
     private GameObject[] highlights;

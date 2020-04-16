@@ -5,8 +5,25 @@ using UnityEngine.UI;
 
 public class DestroyButton : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private GameObject menu;
+    private bool beginning;
+
+    // void start() {
+    //     beginning = true;
+    // }
+
+    public void beginningTrue() {
+        beginning = true;
+    }
+    
     public void Destroy() {
-        GetComponent<Image>().enabled = false;
+        //GetComponent<Image>().enabled = false;
+        // menu = this.transform.parent.gameObject;
+        beginning = false;
+       transform.parent.gameObject.SetActive(false);
+    }
+
+    public bool isItBeginning() {
+        return beginning;
     }
 }
