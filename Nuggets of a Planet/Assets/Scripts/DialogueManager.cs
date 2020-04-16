@@ -49,7 +49,7 @@ public class DialogueManager : MonoBehaviour
         // string firstWord = sentence.Substring(0, firstSpaceIndex);
 
         index = sentences.Count;
-        Debug.Log(index);
+        //Debug.Log(index);
         dialogueText.text = sentence;
         StopAllCoroutines();
         StartCoroutine(TypeSentence(sentence));
@@ -62,9 +62,6 @@ public class DialogueManager : MonoBehaviour
         // Debug.Log(sentence);
         foreach (char letter in sentence.ToCharArray())
         {
-
-            // Debug.Log(dialogueText.text);
-
             dialogueText.text += letter;
             yield return null;
         }

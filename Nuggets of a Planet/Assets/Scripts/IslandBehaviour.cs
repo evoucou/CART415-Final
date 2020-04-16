@@ -70,6 +70,8 @@ public class IslandBehaviour : MonoBehaviour
     private ElementBehaviour elementScript;
     private string mostRecentIsland;
 
+    private int specialIslandTracker;
+
     // private GameObject[] highlights;
     //bool buttonOk = true;
 
@@ -79,6 +81,8 @@ public class IslandBehaviour : MonoBehaviour
  
     void Start()
     {
+
+        specialIslandTracker = 0;
         cubeInBag = GameObject.Find("HeldElementCube");
 
         mostRecentIsland = null;
@@ -118,7 +122,7 @@ public class IslandBehaviour : MonoBehaviour
 
     void FixedUpdate()
     {
-
+        
         //  if (Input.GetKeyDown(KeyCode.M)) shakeScript.wrongCombination();
 
         sentence = DialogueScript.dialogueIndex();
@@ -202,9 +206,10 @@ public class IslandBehaviour : MonoBehaviour
 
         if (islandIsAtTop)
         {
+            if(mostRecentIsland == "Human Island" || mostRecentIsland == "Agriculture Island" || mostRecentIsland == "Car Island" || mostRecentIsland == "House Island" || mostRecentIsland == "Animal Island" ) specialIslandTracker += 1;
             combinationExists = false;
             islandIsAtTop = false;
-        }
+        } 
 
         // if (combinationExists) 
         // {
@@ -415,7 +420,6 @@ public class IslandBehaviour : MonoBehaviour
 
        public void specialIsland(string islandName, string desiredHeldElementName, string desiredFixedElementName, GameObject heldElement, GameObject fixedElement)
     {
-
         GameObject island = GameObject.Find(islandName);
         //rb = island.GetComponent<Rigidbody>();
         
@@ -442,7 +446,7 @@ public class IslandBehaviour : MonoBehaviour
                 destroyWalls(islandName, island);   
                 mostRecentIsland = islandName;  
                 StartCoroutine(FadeIn(_myMaterial, 1f, 1.5f)); 
-                elementScript.ElementReveal(islandName);      
+                if(islandName == "Human Island") elementScript.ElementReveal(islandName);      
 
                 islandIsAtTop = true;
                 islandIsMoving = false;
@@ -702,7 +706,7 @@ public class IslandBehaviour : MonoBehaviour
             Destroy(stoneIsland.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
          if(bricksIsland.transform.position.y > -0.16) 
             {
-            Destroy(bricksIsland.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
+            Destroy(bricksIsland.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
             Destroy(island.transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
             } 
             eggUp = true;
@@ -1072,6 +1076,10 @@ public class IslandBehaviour : MonoBehaviour
 
         public bool isHumanUp() {
         return humanUp;
+    }
+
+            public int trackIslandCount() {
+        return specialIslandTracker;
     }
         
 }

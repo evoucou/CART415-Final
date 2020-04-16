@@ -18,7 +18,7 @@ public class HumanIsland : MonoBehaviour
     void Update()
     {
         humanCreated = islandScript.isHumanUp();
-        if(humanCreated) dialogueScript.TriggerDialogue();
+        //if(humanCreated) dialogueScript.TriggerDialogue();
 
     }
 
