@@ -108,8 +108,6 @@ public class PickUp : MonoBehaviour
                 } else stateP.sprite = inactiveP;
              }
 
-              Debug.Log("in range: " + element);
-
 
         if (Input.GetKeyDown (KeyCode.P)) {
             if (!cannotPickup) PickUpObj();
