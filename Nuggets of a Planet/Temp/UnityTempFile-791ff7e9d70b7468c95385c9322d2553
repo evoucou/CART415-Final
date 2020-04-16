@@ -321,3 +321,4 @@
 "Assets/Scripts/PlayerController.cs"
 "Assets/Scripts/Pulse.cs"
 "Assets/Scripts/Shake.cs"
+"Assets/Scripts/ThirdPersonCamera.cs"
