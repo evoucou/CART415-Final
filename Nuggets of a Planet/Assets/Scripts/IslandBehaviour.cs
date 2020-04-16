@@ -70,9 +70,13 @@ public class IslandBehaviour : MonoBehaviour
     //bool buttonOk = true;
 
     private bool rightObjToMixTut;
+
+    private GameObject cubeInBag;
  
     void Start()
     {
+        cubeInBag = GameObject.Find("HeldElementCube");
+
         mostRecentIsland = null;
         elementScript = GameObject.Find("Energy").GetComponent<ElementBehaviour>();
 
@@ -288,6 +292,7 @@ public class IslandBehaviour : MonoBehaviour
 
             // Obj in your bag disappears (reset)
             heldObj.gameObject.GetComponent<Renderer>().enabled = false;
+            cubeInBag.gameObject.GetComponent<MeshRenderer>().enabled = false;
 
         }
 

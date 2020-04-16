@@ -7886,7 +7886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grabPoint: {fileID: 12729066}
-  bagUI: {fileID: 0}
+  cubeInBag: {fileID: 0}
   island: {fileID: 0}
   activeP: {fileID: 0}
   inactiveP: {fileID: 0}
@@ -8620,13 +8620,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 559578071}
-  m_Layer: 0
-  m_Name: HeldElementCube
+  m_Layer: 5
+  m_Name: BagHeldElementCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &559578071
 Transform:
   m_ObjectHideFlags: 0
@@ -11367,7 +11367,7 @@ GameObject:
   - component: {fileID: 1046469367}
   - component: {fileID: 1046469366}
   m_Layer: 0
-  m_Name: UICamera
+  m_Name: BagUICamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11818,7 +11818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grabPoint: {fileID: 140056790}
-  bagUI: {fileID: 559578071}
+  cubeInBag: {fileID: 1294038388}
   island: {fileID: 1085701066}
   activeP: {fileID: 21300000, guid: e6fee514ec40447bfb2bf144f978889e, type: 3}
   inactiveP: {fileID: 21300000, guid: 91deb34d5e5564f63944544f753e8ae6, type: 3}
@@ -12840,7 +12840,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &1294038389
 BoxCollider:
   m_ObjectHideFlags: 0
