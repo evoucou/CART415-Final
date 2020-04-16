@@ -41,6 +41,10 @@ public class IslandBehaviour : MonoBehaviour
     private bool cartUp = false;
     private bool beastUp = false;
     private bool horseUp = false;
+    private bool carUp = false;
+    private bool houseUp = false;
+    private bool animalUp = false;
+    private bool agricultureUp = false;
 
     private bool inRange;
     private bool islandIsMoving;
@@ -290,7 +294,19 @@ public class IslandBehaviour : MonoBehaviour
             specialIsland("Human Island", "Golem", "Life", heldObj, objInRange); 
             specialIsland("Human Island", "Life", "Golem", heldObj, objInRange);
 
-            // Obj in your bag disappears (reset)
+            specialIsland("Agriculture Island", "Fields", "Seeds", heldObj, objInRange); 
+            specialIsland("Agriculture Island", "Seeds", "Fields", heldObj, objInRange);
+
+            specialIsland("House Island", "Cement", "Bricks", heldObj, objInRange); 
+            specialIsland("House Island", "Bricks", "Cement", heldObj, objInRange);
+
+            specialIsland("Car Island", "Oil", "Cart", heldObj, objInRange); 
+            specialIsland("Car Island", "Cart", "Oil", heldObj, objInRange);
+
+            specialIsland("Animal Island", "Horse", "Human", heldObj, objInRange); 
+            specialIsland("Animal Island", "Human", "Horse", heldObj, objInRange);
+
+            // Obj in your bag disappears (both physical & ui) (reset)
             heldObj.gameObject.GetComponent<Renderer>().enabled = false;
             cubeInBag.gameObject.GetComponent<MeshRenderer>().enabled = false;
 
@@ -547,6 +563,24 @@ public class IslandBehaviour : MonoBehaviour
         // CART
         if (heldName == "Wood") if (groundName == "Wheel") if(!cartUp) combinationExists = true;
         if (heldName == "Wheel") if (groundName == "Wood") if(!cartUp) combinationExists = true;
+
+        //SPECIAL ISLANDS
+
+        // AGRICULTURE
+        if (heldName == "Fields") if (groundName == "Seeds") if(!agricultureUp) combinationExists = true;
+        if (heldName == "Seeds") if (groundName == "Fields") if(!agricultureUp) combinationExists = true;
+
+        // CAR
+        if (heldName == "Oil") if (groundName == "Cart") if(!carUp) combinationExists = true;
+        if (heldName == "Cart") if (groundName == "Oil") if(!carUp) combinationExists = true;
+
+        // HOUSE
+        if (heldName == "Bricks") if (groundName == "Cement") if(!houseUp) combinationExists = true;
+        if (heldName == "Cement") if (groundName == "Bricks") if(!houseUp) combinationExists = true;
+
+        // DOMESTICATED ANIMAL
+        if (heldName == "Horse") if (groundName == "Human") if(!animalUp) combinationExists = true;
+        if (heldName == "Human") if (groundName == "Horse") if(!animalUp) combinationExists = true;
     }
 
     // Destroy walls when new island appears (also determines if island is up or not)
@@ -585,6 +619,11 @@ public class IslandBehaviour : MonoBehaviour
         GameObject wheelIsland = GameObject.Find("Wheel Island");
         GameObject cartIsland = GameObject.Find("Cart Island");
         GameObject horseIsland = GameObject.Find("Horse Island");
+        // Special Islands
+        GameObject agricultureIsland = GameObject.Find("Agriculture Island");
+        GameObject houseIsland = GameObject.Find("House Island");
+        GameObject carIsland = GameObject.Find("Car Island");  
+        GameObject animalIsland = GameObject.Find("Animal Island");  
 
 
         // // Destroying walls where player can walk
@@ -921,6 +960,28 @@ public class IslandBehaviour : MonoBehaviour
             Destroy(lavaIsland.transform.GetChild(3).gameObject.GetComponent<BoxCollider>());
             Destroy(beastIsland.transform.GetChild(2).gameObject.GetComponent<BoxCollider>());
             horseUp = true;
+        }
+
+        if (name == "Agriculture Island") 
+        {
+            Destroy(seedsIsland.transform.GetChild(1).gameObject.GetComponent<BoxCollider>());
+            agricultureUp = true;
+        }
+
+        if (name == "Car Island") 
+        {
+            Destroy(oilIsland.transform.GetChild(2).gameObject.GetComponent<BoxCollider>());
+            carUp = true;
+        }
+        if (name == "House Island") 
+        {
+            Destroy(cementIsland.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
+            houseUp = true;
+        }
+             if (name == "Animal Island") 
+        {
+            Destroy(horseIsland.transform.GetChild(4).gameObject.GetComponent<BoxCollider>());
+            animalUp = true;
         }
 
         checkIfTutorialHighlight(name);
