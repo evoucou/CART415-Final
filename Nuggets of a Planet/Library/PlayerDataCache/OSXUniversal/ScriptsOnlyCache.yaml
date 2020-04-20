@@ -3,18 +3,21 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - BagUI
     - ButtonManager
+    - DestroyButton
     - DialogueManager
     - DialogueTrigger
     - ElementBehaviour
     - Float
+    - HumanIsland
     - IslandBehaviour
+    - IslandCounter
     - Minimap
     - MinimapObj
     - MovingClouds
     - PickUp
     - PlayerController
     - Pulse
-    - TextScript
+    - Shake
     - ThirdPersonCamera
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
@@ -73,6 +76,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 74
       Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
     - Class: 84
       Script: {instanceID: 0}
     - Class: 89
@@ -100,59 +105,65 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9848}
     - Class: 114
-      Script: {instanceID: 9872}
+      Script: {instanceID: 9874}
     - Class: 114
-      Script: {instanceID: 9912}
+      Script: {instanceID: 9914}
     - Class: 114
-      Script: {instanceID: 9924}
+      Script: {instanceID: 9926}
     - Class: 114
-      Script: {instanceID: 9952}
+      Script: {instanceID: 9954}
     - Class: 114
-      Script: {instanceID: 9962}
+      Script: {instanceID: 9964}
     - Class: 114
-      Script: {instanceID: 10032}
+      Script: {instanceID: 10034}
     - Class: 114
-      Script: {instanceID: 10174}
+      Script: {instanceID: 10044}
     - Class: 114
-      Script: {instanceID: 10186}
+      Script: {instanceID: 10178}
     - Class: 114
-      Script: {instanceID: 10306}
+      Script: {instanceID: 10190}
     - Class: 114
-      Script: {instanceID: 10334}
+      Script: {instanceID: 10336}
     - Class: 114
-      Script: {instanceID: 10460}
+      Script: {instanceID: 10462}
     - Class: 114
-      Script: {instanceID: 10712}
+      Script: {instanceID: 10602}
     - Class: 114
-      Script: {instanceID: 10866}
+      Script: {instanceID: 10622}
     - Class: 114
-      Script: {instanceID: 10932}
+      Script: {instanceID: 10716}
     - Class: 114
-      Script: {instanceID: 10954}
+      Script: {instanceID: 10764}
     - Class: 114
-      Script: {instanceID: 11180}
+      Script: {instanceID: 10872}
     - Class: 114
-      Script: {instanceID: 11286}
+      Script: {instanceID: 10938}
     - Class: 114
-      Script: {instanceID: 11304}
+      Script: {instanceID: 10960}
     - Class: 114
-      Script: {instanceID: 11332}
+      Script: {instanceID: 11186}
     - Class: 114
-      Script: {instanceID: 11376}
+      Script: {instanceID: 11188}
     - Class: 114
-      Script: {instanceID: 11490}
+      Script: {instanceID: 11294}
     - Class: 114
-      Script: {instanceID: 11630}
+      Script: {instanceID: 11312}
     - Class: 114
-      Script: {instanceID: 11856}
+      Script: {instanceID: 11340}
     - Class: 114
-      Script: {instanceID: 11938}
+      Script: {instanceID: 11384}
     - Class: 114
-      Script: {instanceID: 11998}
+      Script: {instanceID: 11428}
     - Class: 114
-      Script: {instanceID: 44320}
+      Script: {instanceID: 11500}
     - Class: 114
-      Script: {instanceID: 244088}
+      Script: {instanceID: 11640}
+    - Class: 114
+      Script: {instanceID: 11866}
+    - Class: 114
+      Script: {instanceID: 11948}
+    - Class: 114
+      Script: {instanceID: 12008}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -171,8 +182,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 199
       Script: {instanceID: 0}
-    - Class: 205
-      Script: {instanceID: 0}
     - Class: 212
       Script: {instanceID: 0}
     - Class: 213
@@ -184,6 +193,8 @@ ScriptsOnlyBuild:
     - Class: 224
       Script: {instanceID: 0}
     - Class: 258
+      Script: {instanceID: 0}
+    - Class: 156049354
       Script: {instanceID: 0}
   scriptHashData:
   - hash:
@@ -338,6 +349,12 @@ ScriptsOnlyBuild:
     className: IslandBehaviour
   - hash:
       serializedVersion: 2
+      Hash: e0e42d63d4088f623a052ec95bd2ac60
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ButtonManager
+  - hash:
+      serializedVersion: 2
       Hash: 8aa3d6ccbcb54ee8db6c1229854adaaa
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -374,7 +391,7 @@ ScriptsOnlyBuild:
     className: NetworkProximityChecker
   - hash:
       serializedVersion: 2
-      Hash: 8a5e7b97369998ba0f6f19f6635e190a
+      Hash: 999785a4ddea4add846e3633b6da8dab
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
@@ -408,12 +425,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: AnimationPlayableAsset
-  - hash:
-      serializedVersion: 2
-      Hash: 20c9a74d659b6895cfdb5f4624ba8daa
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: TextScript
   - hash:
       serializedVersion: 2
       Hash: aba7b2852ef61d175dd9602e7723d5e5
@@ -488,6 +499,12 @@ ScriptsOnlyBuild:
     className: NetworkLobbyManager
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: IslandCounter
+  - hash:
+      serializedVersion: 2
       Hash: 5887ef1bc706b22b773d253fd443ceef
     assemblyName: com.unity.multiplayer-hlapi.Runtime.dll
     namespaceName: UnityEngine.Networking
@@ -497,7 +514,7 @@ ScriptsOnlyBuild:
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: SpecialIsland
+    className: DestroyButton
   - hash:
       serializedVersion: 2
       Hash: b3ab2106268377ffe25dd18ac23dca28
@@ -522,6 +539,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: SignalTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 43b53a8d3f8e67913acc739469ba21b2
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Shake
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -596,6 +619,12 @@ ScriptsOnlyBuild:
     className: SignalReceiver
   - hash:
       serializedVersion: 2
+      Hash: d2f553782c922bcc9fcb4a7c53331150
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Pulse
+  - hash:
+      serializedVersion: 2
       Hash: 5ad4aa237d47ac2bab17bacb672edf7a
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -656,7 +685,7 @@ ScriptsOnlyBuild:
     className: NetworkBehaviour
   - hash:
       serializedVersion: 2
-      Hash: 852ed62e5f1905362c2c0eb829de79dd
+      Hash: 857a7867125c1a0a44b39fd9b32a3f71
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PickUp
@@ -672,6 +701,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp-firstpass.dll
     namespaceName: 
     className: RotateSample
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: HumanIsland
   - hash:
       serializedVersion: 2
       Hash: 5f1752ed2092162f016c19510c28a8b9
@@ -840,19 +875,7 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Pulse
-  - hash:
-      serializedVersion: 2
-      Hash: 1c16ca076f99f04804b9be90ba2c93ab
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: ButtonManager
   platform: 2
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: /Users/Marie-Eve/Desktop/game.app
+  playerPath: /Users/Marie-Eve/Desktop/NOAP-Demo.app
